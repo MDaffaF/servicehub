@@ -1,0 +1,51 @@
+name: servicehub
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: "^3.6.1"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.3  # Menambahkan flutter_launcher_icons
+  flutter_native_splash: ^2.4.4
+
+flutter_native_splash:
+  color: "#FFFFFF"  # Warna latar belakang splash screen
+  image: assets/icons/Logo_app.png  # Path gambar logo splash screen
+  android_gravity: center  # Memposisikan logo di tengah layar
+  android_12:
+    image: assets/icons/Logo_app.png  # Path gambar logo untuk Android 12
+    color: "#FFFFFF"  # Mengubah warna latar belakang untuk Android 12
+  ios: true  # Pastikan splash screen diterapkan di iOS
+
+flutter_icons:
+  android: true  # Ikon akan diterapkan di Android
+  ios: true  # Ikon akan diterapkan di iOS
+  image_path: "assets/icons/Logo_app.png"  # Ganti dengan path gambar logo Anda
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icons/backgroundSpalsh.png
+    - assets/icons/Logo_app.png
+    - assets/icons/backgroundSpalshWhite.png
+    - assets/icons/Addres.png
+    - assets/icons/Buyer.png
+    - assets/icons/Worker.png
+
+fonts:
+  - family: Inter
+    fonts:
+      - asset: assets/fonts/Inter-Regular.ttf
+      - asset: assets/fonts/Inter-Bold.ttf
+        weight: 700
