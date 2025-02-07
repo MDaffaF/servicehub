@@ -18,6 +18,9 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_launcher_icons: ^0.14.3  # Menambahkan flutter_launcher_icons
   flutter_native_splash: ^2.4.4
+  google_fonts: ^5.1.0
+  flutter_rating_bar: ^4.0.1
+  font_awesome_flutter: ^10.5.0
 
 flutter_native_splash:
   color: "#FFFFFF"  # Warna latar belakang splash screen

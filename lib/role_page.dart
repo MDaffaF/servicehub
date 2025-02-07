@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:servicehub/view/DetailPage.dart';
+import 'package:servicehub/view/homescreen.dart';
 import 'login_page.dart'; // Gantilah dengan halaman selanjutnya
 
 class RolePage extends StatefulWidget {
@@ -45,7 +47,7 @@ class _RolePageState extends State<RolePage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const LoginPage()), // Ganti dengan halaman selanjutnya
+                          MaterialPageRoute(builder: (context) => Homescreen()), // Ganti dengan halaman selanjutnya
                         );
                       },
                       style: ElevatedButton.styleFrom(
@@ -102,7 +104,7 @@ class _RolePageState extends State<RolePage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const LoginPage()), // Ganti dengan halaman selanjutnya
+                          MaterialPageRoute(builder: (context) => DetailPage()), // Ganti dengan halaman selanjutnya
                         );
                       },
                       style: ElevatedButton.styleFrom(
