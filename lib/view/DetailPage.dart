@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'CartScreen.dart';
 
 class DetailPage extends StatelessWidget {
   @override
@@ -34,12 +35,10 @@ class DetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Gambar Header
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset("assets/Detail.png"), // Pastikan gambarnya ada di folder assets
+              child: Image.asset("assets/icons/detail.png"),
             ),
-
             Padding(
               padding: EdgeInsets.all(16),
               child: Column(
@@ -54,7 +53,7 @@ class DetailPage extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    "Enjoy a clean, worry-free home! Too tired or busy to clean? Let our professional cleaning service handle it all, from fast and efficient cleaning to fixing a leaky pipe and cleaning your water tank. We offer affordable, comprehensive services to ensure your home is spotless and well-maintained.",
+                    "Kami adalah layanan pembersihan rumah profesional yang siap membantu Anda menciptakan lingkungan yang bersih, segar, dan nyaman. Dengan tim berpengalaman dan peralatan terbaik, kami memastikan setiap sudut rumah Anda bebas dari debu dan kotoran. Baik untuk pembersihan rutin, deep cleaning, atau kebutuhan khusus lainnya, kami hadir untuk memberikan solusi terbaik. Percayakan kebersihan rumah Anda kepada kami dan nikmati waktu berkualitas tanpa repot!.",
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                       color: Colors.grey[700],
@@ -68,15 +67,15 @@ class DetailPage extends StatelessWidget {
                     children: [
                       _infoItem(Icons.star, "4.8"),
                       _infoItem(Icons.local_shipping, "FREE"),
-                      _infoItem(Icons.attach_money, "20/Hour"),
+                      _infoItem(Icons.attach_money, "20/Jam"),
                       _infoItem(Icons.location_on, "3 Km"),
                     ],
                   ),
                   SizedBox(height: 20),
 
                   // Review Customer
-                  _reviewItem("Ujang", "Manchester team is professional and friendly. They arrived on time, worked efficiently, and left my home clean and tidy. Affordable and high-quality service. I will definitely use them again and recommend them.", "MG"),
-                  _reviewItem("Siti", "The cleaning crew from Persib is skilled and courteous. They showed up on time, worked quickly, and left my home spotless. Their service is both affordable and top-notch. I will certainly hire them again and recommend their services.", "PG"),
+                  _reviewItem("Dadang", "Saya sangat puas dengan layanan pembersihan dari tim ini! Mereka datang tepat waktu, ramah, dan bekerja dengan sangat teliti. Rumah saya benar-benar terasa lebih bersih dan segar setelah mereka selesai. Satu-satunya alasan saya tidak memberikan bintang 5 adalah karena ada beberapa sudut kecil yang masih bisa lebih diperhatikan. Tapi secara keseluruhan, saya pasti akan menggunakan jasa mereka lagi!.", "DG"),
+                  _reviewItem("Jubaedah", "Layanan yang baik dan profesional! Tim house cleaners ini bekerja dengan cepat namun tetap detail dalam membersihkan setiap ruangan. Saya suka bagaimana mereka menggunakan produk pembersih yang ramah lingkungan. Namun, saya berharap mereka bisa sedikit lebih teliti dalam membersihkan bagian bawah perabot. Tapi selain itu, hasilnya memuaskan dan saya merekomendasikannya!", "JB"),
                 ],
               ),
             ),
@@ -93,9 +92,11 @@ class DetailPage extends StatelessWidget {
             ),
             padding: EdgeInsets.symmetric(vertical: 15),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()));
+          },
           child: Text(
-            "Add To Cart",
+            "Tambahkan ke Keranjang",
             style: GoogleFonts.poppins(
               fontSize: 16,
               fontWeight: FontWeight.bold,

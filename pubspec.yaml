@@ -46,6 +46,9 @@ flutter:
     - assets/icons/Addres.png
     - assets/icons/Buyer.png
     - assets/icons/Worker.png
+    - assets/icons/detail.png
+    - assets/icons/eh.png
+    - assets/icons/hc.png
 
 fonts:
   - family: Inter
