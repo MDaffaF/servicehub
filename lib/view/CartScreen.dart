@@ -205,15 +205,13 @@ class _CartScreenState extends State<CartScreen> {
                       "TOTAL : \$${totalPrice}",
                       style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Text(
-                        "PAYMENT METHOD",
-                        style: GoogleFonts.poppins(
-                          color: Colors.orange,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.orange,
+                        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                       ),
+                      child: Text("Pesan", style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
                     ),
                   ],
                 ),
