@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:servicehub/view/MorePage.dart';
 import 'addresacces_page.dart'; // Make sure the import is correct
 
 class LoginPage extends StatefulWidget {
@@ -15,12 +16,15 @@ class _LoginPageState extends State<LoginPage> {
   // Fungsi untuk menekan tombol Continue
   void _continueLogin() {
     // Logic untuk proses login (misalnya, validasi dan navigasi ke halaman lain)
-    print("Email: ${_emailController.text}, Password: ${_passwordController.text}");
-    
+    print(
+        "Email: ${_emailController.text}, Password: ${_passwordController.text}");
+
     // Setelah login berhasil, navigasi ke AddresaccesPage
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const AccessPage()), // Assuming AddresaccesPage is a StatelessWidget or StatefulWidget
+      MaterialPageRoute(
+          builder: (context) =>
+              MoreScreen()), // Assuming AddresaccesPage is a StatelessWidget or StatefulWidget
     );
   }
 
@@ -47,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
             const Text(
               'Login to your account',
               style: TextStyle(
-                fontFamily: 'Inter',  // Use Inter font family
+                fontFamily: 'Inter', // Use Inter font family
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
               ),
@@ -55,12 +59,14 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 20),
 
             // Email Address
-            buildInputField('Email Address', 'Enter your email', controller: _emailController),
+            buildInputField('Email Address', 'Enter your email',
+                controller: _emailController),
 
             const SizedBox(height: 20),
 
             // Password
-            buildInputField('Password', 'Enter your password', obscureText: true, controller: _passwordController),
+            buildInputField('Password', 'Enter your password',
+                obscureText: true, controller: _passwordController),
 
             const SizedBox(height: 20),
 
@@ -79,10 +85,9 @@ class _LoginPageState extends State<LoginPage> {
                 child: const Text(
                   'Continue',
                   style: TextStyle(
-                    fontFamily: 'Inter',  // Use Inter font family
-                    fontSize: 16, 
-                    color: Colors.white
-                  ),
+                      fontFamily: 'Inter', // Use Inter font family
+                      fontSize: 16,
+                      color: Colors.white),
                 ),
               ),
             ),
@@ -93,7 +98,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   // Fungsi untuk membangun input field
-  Widget buildInputField(String label, String hint, {bool obscureText = false, TextEditingController? controller}) {
+  Widget buildInputField(String label, String hint,
+      {bool obscureText = false, TextEditingController? controller}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: Column(
@@ -102,10 +108,9 @@ class _LoginPageState extends State<LoginPage> {
           Text(
             label,
             style: const TextStyle(
-              fontFamily: 'Inter',  // Use Inter font family
-              fontSize: 16, 
-              fontWeight: FontWeight.w500
-            ),
+                fontFamily: 'Inter', // Use Inter font family
+                fontSize: 16,
+                fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 5),
           TextField(
