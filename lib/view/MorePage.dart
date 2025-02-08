@@ -3,6 +3,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:servicehub/view/CartScreen.dart';
 import 'package:servicehub/view/DetailPage.dart';
 import 'package:servicehub/view/PaymentPage.dart';
+import 'package:servicehub/view/ProjectScreen.dart';
 import 'package:servicehub/view/addrespage.dart';
 import 'package:servicehub/view/homescreen.dart';
 
@@ -133,7 +134,6 @@ class MoreScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // Bagian Profil
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
@@ -162,8 +162,6 @@ class MoreScreen extends StatelessWidget {
               ],
             ),
           ),
-
-          // Kartu "Invite Friends"
           Card(
             margin: const EdgeInsets.symmetric(horizontal: 16),
             color: Colors.grey[100],
@@ -187,10 +185,7 @@ class MoreScreen extends StatelessWidget {
               ),
             ),
           ),
-
           const SizedBox(height: 20),
-
-          // List Menu
           Expanded(
             child: ListView.builder(
               itemCount: menuItems.length,
@@ -218,50 +213,10 @@ class MoreScreen extends StatelessWidget {
               },
             ),
           ),
-
-          // Versi Aplikasi
           const Padding(
             padding: EdgeInsets.all(10.0),
             child: Text("Version 1.0.0", style: TextStyle(color: Colors.grey)),
           ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.orange,
-        unselectedItemColor: Colors.grey,
-        currentIndex: 3,
-        onTap: (index) {
-          Widget? newPage;
-          switch (index) {
-            case 0:
-              newPage = Homescreen();
-              break;
-            case 1:
-              newPage = DetailPage();
-              break;
-            case 2:
-              newPage = CartScreen();
-              break;
-            case 3:
-              return;
-          }
-          if (newPage != null) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => newPage!),
-            );
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Ionicons.home_outline), label: "Explore"),
-          BottomNavigationBarItem(
-              icon: Icon(Ionicons.document_text_outline), label: "Projects"),
-          BottomNavigationBarItem(
-              icon: Icon(Ionicons.chatbox_ellipses_outline), label: "Messages"),
-          BottomNavigationBarItem(
-              icon: Icon(Ionicons.ellipsis_horizontal_circle_outline),
-              label: "More"),
         ],
       ),
     );

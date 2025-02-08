@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:servicehub/view/DetailPage.dart';
+
 class Homescreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,11 +25,11 @@ class HomeScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.notifications, color: Colors.white),
+            icon: Icon(Icons.shopping_cart, color: Colors.white),
             onPressed: () {},
           ),
           IconButton(
-            icon: Icon(Icons.delete, color: Colors.white),
+            icon: Icon(Icons.notifications, color: Colors.white),
             onPressed: () {},
           ),
         ],
@@ -102,9 +103,11 @@ class PopularServicesSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        ServiceCard(image: 'assets/cleaning.jpg', title: 'Cleaning the house'),
+        ServiceCard(
+            image: 'assets/icons/cleaning.png', title: 'Cleaning the house'),
         SizedBox(width: 10),
-        ServiceCard(image: 'assets/painting.jpg', title: 'Painting the house'),
+        ServiceCard(
+            image: 'assets/icons/painting.png', title: 'Painting the house'),
       ],
     );
   }
@@ -121,7 +124,8 @@ class ServiceCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.asset(image, height: 100, width: double.infinity, fit: BoxFit.cover),
+            child: Image.asset(image,
+                height: 100, width: double.infinity, fit: BoxFit.cover),
           ),
           SizedBox(height: 5),
           Text(title),
@@ -137,18 +141,34 @@ class CategoriesSection extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        CategoryIcon(title: 'Plumbing', icon: Icons.plumbing, onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage()));
-        }),
-        CategoryIcon(title: 'Carpentry', icon: Icons.build, onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage()));
-        }),
-        CategoryIcon(title: 'Painting', icon: Icons.format_paint, onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage()));
-        }),
-        CategoryIcon(title: 'Cleaning', icon: Icons.cleaning_services, onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage()));
-        }),
+        CategoryIcon(
+            title: 'Plumbing',
+            icon: Icons.plumbing,
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => DetailPage()));
+            }),
+        CategoryIcon(
+            title: 'Carpentry',
+            icon: Icons.build,
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => DetailPage()));
+            }),
+        CategoryIcon(
+            title: 'Painting',
+            icon: Icons.format_paint,
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => DetailPage()));
+            }),
+        CategoryIcon(
+            title: 'Cleaning',
+            icon: Icons.cleaning_services,
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => DetailPage()));
+            }),
       ],
     );
   }
@@ -180,9 +200,9 @@ class HandymanServicesSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        HandymanCard(image: 'assets/house_cleaner.jpg', title: 'House Cleaners'),
+        HandymanCard(image: 'assets/icons/detail.png', title: 'House Cleaners'),
         SizedBox(width: 10),
-        HandymanCard(image: 'assets/electrical.jpg', title: 'Electrical Help'),
+        HandymanCard(image: 'assets/icons/eh.png', title: 'Electrical Help'),
       ],
     );
   }
@@ -201,7 +221,8 @@ class HandymanCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.asset(image, height: 100, width: double.infinity, fit: BoxFit.cover),
+                child: Image.asset(image,
+                    height: 100, width: double.infinity, fit: BoxFit.cover),
               ),
               Positioned(
                 top: 10,
@@ -224,4 +245,3 @@ class HandymanCard extends StatelessWidget {
     );
   }
 }
-

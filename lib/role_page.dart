@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:servicehub/view/DetailPage.dart';
+import 'package:servicehub/view/bottom_nav.dart';
 import 'package:servicehub/view/homescreen.dart';
-import 'login_page.dart'; // Gantilah dengan halaman selanjutnya
+import 'login_page.dart';
 
 class RolePage extends StatefulWidget {
   const RolePage({super.key});
@@ -16,10 +17,9 @@ class _RolePageState extends State<RolePage> {
     return Scaffold(
       body: Stack(
         children: [
-          // Background image
           Positioned.fill(
             child: Image.asset(
-              'assets/icons/backgroundSpalshWhite.png', // Path to background image
+              'assets/icons/backgroundSpalshWhite.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -27,40 +27,41 @@ class _RolePageState extends State<RolePage> {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center, // Center the content vertically
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  // Text for role selection
                   const Text(
                     'Select a role',
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
-                      fontFamily: 'Inter', // Apply the Inter font
+                      fontFamily: 'Inter',
                     ),
                   ),
-                  const SizedBox(height: 30), // Reduced space between title and buttons
+                  const SizedBox(height: 30),
 
                   // Button 1: Looking for a specialist
                   SizedBox(
-                    width: double.infinity, // Ensure full width
+                    width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Homescreen()), // Ganti dengan halaman selanjutnya
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  BottomNav()), // Ganti ke Navbar
                         );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
-                          side: const BorderSide(color: Colors.white, width: 2), // Mengubah warna border menjadi putih
+                          side: const BorderSide(color: Colors.white, width: 2),
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 20),
-                        minimumSize: const Size(double.infinity, 80), // Menyesuaikan lebar button dengan rasio layar
+                        minimumSize: const Size(double.infinity, 80),
                       ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center, // Center the content of the button
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Expanded(
                             child: Column(
@@ -71,7 +72,7 @@ class _RolePageState extends State<RolePage> {
                                   style: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
-                                    fontFamily: 'Inter', // Apply the Inter font
+                                    fontFamily: 'Inter',
                                   ),
                                 ),
                                 SizedBox(height: 5),
@@ -80,44 +81,43 @@ class _RolePageState extends State<RolePage> {
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: Colors.grey,
-                                    fontFamily: 'Inter', // Apply the Inter font
+                                    fontFamily: 'Inter',
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          // Image on the right and bigger
                           Image.asset(
-                            'assets/icons/Buyer.png', // Ganti dengan path gambar buyer.png
-                            height: 120, // Adjusted image size
+                            'assets/icons/Buyer.png',
+                            height: 120,
                           ),
                         ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20), // Reduced space between the buttons
+                  const SizedBox(height: 20),
 
                   // Button 2: Looking for a job
                   SizedBox(
-                    width: double.infinity, // Ensure full width
+                    width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => DetailPage()), // Ganti dengan halaman selanjutnya
+                          MaterialPageRoute(builder: (context) => DetailPage()),
                         );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
-                          side: const BorderSide(color: Colors.white, width: 2), // Mengubah warna border menjadi putih
+                          side: const BorderSide(color: Colors.white, width: 2),
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 20),
-                        minimumSize: const Size(double.infinity, 80), // Menyesuaikan lebar button dengan rasio layar
+                        minimumSize: const Size(double.infinity, 80),
                       ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center, // Center the content of the button
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Expanded(
                             child: Column(
@@ -128,7 +128,7 @@ class _RolePageState extends State<RolePage> {
                                   style: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
-                                    fontFamily: 'Inter', // Apply the Inter font
+                                    fontFamily: 'Inter',
                                   ),
                                 ),
                                 SizedBox(height: 5),
@@ -137,22 +137,21 @@ class _RolePageState extends State<RolePage> {
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: Colors.grey,
-                                    fontFamily: 'Inter', // Apply the Inter font
+                                    fontFamily: 'Inter',
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          // Image on the right and bigger
                           Image.asset(
-                            'assets/icons/Worker.png', // Ganti dengan path gambar worker.png
-                            height: 120, // Adjusted image size
+                            'assets/icons/Worker.png',
+                            height: 120,
                           ),
                         ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20), // Reduced space between the buttons
+                  const SizedBox(height: 20),
 
                   // Skip This Step Button
                   Align(
@@ -161,7 +160,8 @@ class _RolePageState extends State<RolePage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const LoginPage()), // Ganti dengan halaman selanjutnya
+                          MaterialPageRoute(
+                              builder: (context) => const LoginPage()),
                         );
                       },
                       child: const Text(
@@ -169,7 +169,7 @@ class _RolePageState extends State<RolePage> {
                         style: TextStyle(
                           fontSize: 18,
                           color: Colors.orange,
-                          fontFamily: 'Inter', // Apply the Inter font
+                          fontFamily: 'Inter',
                         ),
                       ),
                     ),

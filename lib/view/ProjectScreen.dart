@@ -24,7 +24,6 @@ class ProjectsScreen extends StatefulWidget {
 class _ProjectsScreenState extends State<ProjectsScreen> {
   int _selectedTabIndex = 0; // 0 = "In Progress", 1 = "Completed"
 
-  // List Proyek "In Progress"
   List<Map<String, String>> inProgressProjects = [
     {
       'title': 'Indoor Cleaning',
@@ -42,16 +41,12 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
     },
   ];
 
-  // List Proyek "Completed"
   List<Map<String, String>> completedProjects = [];
 
   void _markAsCompleted(int index) {
     setState(() {
-      // Pindahkan proyek dari "In Progress" ke "Completed"
       completedProjects.add(inProgressProjects[index]);
       inProgressProjects.removeAt(index);
-
-      // Jika semua proyek selesai, langsung pindah ke tab "Completed"
       if (inProgressProjects.isEmpty) {
         _selectedTabIndex = 1;
       }
@@ -62,7 +57,11 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Projects', style: GoogleFonts.inter(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black)),
+        title: Text('Projects',
+            style: GoogleFonts.inter(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.black)),
         backgroundColor: Colors.white,
         elevation: 0,
         actions: [
@@ -74,7 +73,6 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
       ),
       body: Column(
         children: [
-          // Tab Switcher
           Container(
             margin: EdgeInsets.symmetric(horizontal: 16),
             child: Row(
@@ -82,30 +80,44 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                 Expanded(
                   child: TextButton(
                     style: TextButton.styleFrom(
-                      backgroundColor: _selectedTabIndex == 0 ? Colors.orange.shade100 : Colors.grey.shade200,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      backgroundColor: _selectedTabIndex == 0
+                          ? Colors.orange.shade100
+                          : Colors.grey.shade200,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
                     ),
                     onPressed: () {
                       setState(() {
                         _selectedTabIndex = 0;
                       });
                     },
-                    child: Text('In Progress', style: TextStyle(color: _selectedTabIndex == 0 ? Colors.orange : Colors.grey)),
+                    child: Text('In Progress',
+                        style: TextStyle(
+                            color: _selectedTabIndex == 0
+                                ? Colors.orange
+                                : Colors.grey)),
                   ),
                 ),
                 SizedBox(width: 8),
                 Expanded(
                   child: TextButton(
                     style: TextButton.styleFrom(
-                      backgroundColor: _selectedTabIndex == 1 ? Colors.orange.shade100 : Colors.grey.shade200,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      backgroundColor: _selectedTabIndex == 1
+                          ? Colors.orange.shade100
+                          : Colors.grey.shade200,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
                     ),
                     onPressed: () {
                       setState(() {
                         _selectedTabIndex = 1;
                       });
                     },
-                    child: Text('Completed', style: TextStyle(color: _selectedTabIndex == 1 ? Colors.orange : Colors.grey)),
+                    child: Text('Completed',
+                        style: TextStyle(
+                            color: _selectedTabIndex == 1
+                                ? Colors.orange
+                                : Colors.grey)),
                   ),
                 ),
               ],
@@ -114,26 +126,19 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
           Expanded(
             child: ListView.builder(
               padding: EdgeInsets.all(16),
-              itemCount: _selectedTabIndex == 0 ? inProgressProjects.length : completedProjects.length,
+              itemCount: _selectedTabIndex == 0
+                  ? inProgressProjects.length
+                  : completedProjects.length,
               itemBuilder: (context, index) {
-                var project = _selectedTabIndex == 0 ? inProgressProjects[index] : completedProjects[index];
+                var project = _selectedTabIndex == 0
+                    ? inProgressProjects[index]
+                    : completedProjects[index];
                 return _selectedTabIndex == 0
-                    ? _buildProjectCard(project, index) // Proyek "In Progress"
-                    : _buildCompletedProjectCard(project); // Proyek "Completed"
+                    ? _buildProjectCard(project, index)
+                    : _buildCompletedProjectCard(project);
               },
             ),
           ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
-        selectedItemColor: Colors.orange,
-        unselectedItemColor: Colors.grey,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Explore'),
-          BottomNavigationBarItem(icon: Icon(Icons.assignment), label: 'Projects'),
-          BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Messages'),
-          BottomNavigationBarItem(icon: Icon(Icons.more_horiz), label: 'More'),
         ],
       ),
     );
@@ -150,7 +155,9 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(project['title']!, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text(project['title']!,
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 Text('Processing', style: TextStyle(color: Colors.grey)),
               ],
             ),
@@ -170,36 +177,18 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                 Text(project['time']!),
               ],
             ),
-            if (project['service']!.isNotEmpty) ...[
-              SizedBox(height: 8),
-              Row(
-                children: [
-                  Icon(Icons.sync, size: 16, color: Colors.grey),
-                  SizedBox(width: 8),
-                  Text(project['service']!),
-                ],
-              ),
-            ],
-            SizedBox(height: 8),
-            Row(
-              children: [
-                Icon(Icons.business, size: 16, color: Colors.grey),
-                SizedBox(width: 8),
-                Text(project['company']!, style: TextStyle(fontWeight: FontWeight.bold)),
-                SizedBox(width: 4),
-                Icon(FontAwesomeIcons.solidCheckCircle, size: 14, color: Colors.orange),
-              ],
-            ),
             SizedBox(height: 16),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
                 side: BorderSide(color: Colors.black),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
               ),
               onPressed: () => _markAsCompleted(index),
               child: Center(
-                child: Text('Mark as completed', style: TextStyle(color: Colors.black)),
+                child: Text('Mark as completed',
+                    style: TextStyle(color: Colors.black)),
               ),
             ),
           ],
@@ -220,12 +209,17 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(project['title']!, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                Icon(FontAwesomeIcons.solidCheckCircle, size: 18, color: Colors.green),
+                Text(project['title']!,
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Icon(FontAwesomeIcons.solidCheckCircle,
+                    size: 18, color: Colors.green),
               ],
             ),
             SizedBox(height: 8),
-            Text('✅ Completed', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+            Text('✅ Completed',
+                style: TextStyle(
+                    color: Colors.green, fontWeight: FontWeight.bold)),
           ],
         ),
       ),

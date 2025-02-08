@@ -55,6 +55,8 @@ flutter:
     - assets/icons/cod.png
     - assets/icons/bank_transfer.png
     - assets/icons/qris.png
+    - assets/icons/cleaning.png
+    - assets/icons/painting.png
 
   fonts:
     - family: Inter
