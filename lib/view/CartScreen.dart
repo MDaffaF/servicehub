@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:servicehub/view/ProjectScreen.dart'; // Pastikan import ini benar
 
 void main() {
   runApp(const MyApp());
@@ -13,6 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: CartScreen(),
+      routes: {
+        '/projects': (context) => ProjectsScreen(),
+      },
     );
   }
 }
@@ -165,7 +169,7 @@ class _CartScreenState extends State<CartScreen> {
                         child: _isEditing
                             ? TextField(
                                 controller: TextEditingController(text: _alamat),
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   border: InputBorder.none,
                                   hintText: "Masukkan alamat baru",
                                 ),
@@ -206,7 +210,12 @@ class _CartScreenState extends State<CartScreen> {
                       style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ProjectsScreen()), // Perbaikan navigasi
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.orange,
                         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
