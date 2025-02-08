@@ -12,30 +12,33 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.0.17
+  ionicons: ^0.2.2  # Tambahkan dependensi ionicons untuk ikon
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
-  flutter_launcher_icons: ^0.14.3  # Menambahkan flutter_launcher_icons
+  flutter_launcher_icons: ^0.14.3
   flutter_native_splash: ^2.4.4
   google_fonts: ^5.1.0
   flutter_rating_bar: ^4.0.1
   font_awesome_flutter: ^10.5.0
+  in_app_review: ^2.0.6
+
 
 flutter_native_splash:
-  color: "#FFFFFF"  # Warna latar belakang splash screen
-  image: assets/icons/Logo_app.png  # Path gambar logo splash screen
-  android_gravity: center  # Memposisikan logo di tengah layar
+  color: "#FFFFFF"
+  image: assets/icons/Logo_app.png
+  android_gravity: center
   android_12:
-    image: assets/icons/Logo_app.png  # Path gambar logo untuk Android 12
-    color: "#FFFFFF"  # Mengubah warna latar belakang untuk Android 12
-  ios: true  # Pastikan splash screen diterapkan di iOS
+    image: assets/icons/Logo_app.png
+    color: "#FFFFFF"
+  ios: true
 
 flutter_icons:
-  android: true  # Ikon akan diterapkan di Android
-  ios: true  # Ikon akan diterapkan di iOS
-  image_path: "assets/icons/Logo_app.png"  # Ganti dengan path gambar logo Anda
+  android: true
+  ios: true
+  image_path: "assets/icons/Logo_app.png"
 
 flutter:
   uses-material-design: true
@@ -49,10 +52,13 @@ flutter:
     - assets/icons/detail.png
     - assets/icons/eh.png
     - assets/icons/hc.png
+    - assets/icons/cod.png
+    - assets/icons/bank_transfer.png
+    - assets/icons/qris.png
 
-fonts:
-  - family: Inter
-    fonts:
-      - asset: assets/fonts/Inter-Regular.ttf
-      - asset: assets/fonts/Inter-Bold.ttf
-        weight: 700
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+        - asset: assets/fonts/Inter-Bold.ttf
+          weight: 700
