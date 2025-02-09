@@ -4,6 +4,7 @@ import 'package:servicehub/view/CartScreen.dart';
 import 'package:servicehub/view/DetailPage.dart';
 import 'package:servicehub/view/PaymentPage.dart';
 import 'package:servicehub/view/ProjectScreen.dart';
+import 'package:servicehub/view/about_us.dart';
 import 'package:servicehub/view/addrespage.dart';
 import 'package:servicehub/view/homescreen.dart';
 
@@ -32,34 +33,40 @@ class MoreScreen extends StatelessWidget {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text("Rate Our App"),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text("How many stars would you give us?"),
-              const SizedBox(height: 10),
-              StatefulBuilder(
-                builder: (context, setState) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(5, (index) {
-                      return IconButton(
-                        icon: Icon(
-                          index < rating ? Icons.star : Icons.star_border,
-                          color: Colors.amber,
-                          size: 30,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            rating = (index + 1).toDouble();
-                          });
-                        },
-                      );
-                    }),
-                  );
-                },
-              ),
-            ],
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          title: const Center(child: Text("Rate Our App")),
+          content: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.8,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text("How many stars would you give us?"),
+                const SizedBox(height: 15),
+                StatefulBuilder(
+                  builder: (context, setState) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(5, (index) {
+                        return IconButton(
+                          icon: Icon(
+                            index < rating ? Icons.star : Icons.star_border,
+                            color: Colors.amber,
+                            size: 25,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              rating = (index + 1).toDouble();
+                            });
+                          },
+                        );
+                      }),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
           actions: [
             TextButton(
@@ -99,15 +106,15 @@ class MoreScreen extends StatelessWidget {
       },
       {
         "icon": Ionicons.notifications_outline,
-        "title": "Notifications",
-        "color": Colors.red,
-        "page": PaymentPage()
+        "title": "Notifications (Coming Soon)",
+        "color": Colors.grey,
+        "disabled": true
       },
       {
         "icon": Ionicons.heart_outline,
-        "title": "Saved ServiceHub’s",
-        "color": Colors.purple,
-        "page": PaymentPage()
+        "title": "Saved ServiceHub’s (Coming Soon)",
+        "color": Colors.grey,
+        "disabled": true
       },
       {
         "icon": Ionicons.star_outline,
@@ -119,7 +126,7 @@ class MoreScreen extends StatelessWidget {
         "icon": Ionicons.information_circle_outline,
         "title": "About Us",
         "color": Colors.cyan,
-        "page": PaymentPage()
+        "page": AboutUsPage()
       },
     ];
 
@@ -143,12 +150,12 @@ class MoreScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
                       Text(
-                        "Hello, Nuraima Uswatun",
+                        "Hello, What Zit Tooya",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 5),
-                      Text("nuraima@servicehub.com",
+                      Text("whzty@servicehub.com",
                           style: TextStyle(color: Colors.grey)),
                     ],
                   ),
@@ -162,30 +169,6 @@ class MoreScreen extends StatelessWidget {
               ],
             ),
           ),
-          Card(
-            margin: const EdgeInsets.symmetric(horizontal: 16),
-            color: Colors.grey[100],
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "Invite your friends & get up to IDR 50,000",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    "Introduce your friends to the easiest way to find and hire professionals for your needs.",
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
           Expanded(
             child: ListView.builder(
               itemCount: menuItems.length,
@@ -196,8 +179,9 @@ class MoreScreen extends StatelessWidget {
                     child: Icon(menuItems[index]["icon"], color: Colors.white),
                   ),
                   title: Text(menuItems[index]["title"],
-                      style: const TextStyle(fontWeight: FontWeight.w500)),
-                  onTap: () {
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w500, color: Colors.black54)),
+                  onTap: menuItems[index]["disabled"] == true ? null : () {
                     if (menuItems[index]["page"] is Widget) {
                       Navigator.push(
                         context,

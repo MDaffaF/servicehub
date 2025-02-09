@@ -60,6 +60,11 @@ flutter:
     - assets/icons/elh.png
     - assets/icons/paint.png
     - assets/icons/plumb.png
+    - assets/icons/rizal.png
+    - assets/icons/agung.png
+    - assets/icons/daffa.png
+    - assets/icons/putri.png
+    - assets/icons/about_us.png
 
   fonts:
     - family: Inter
