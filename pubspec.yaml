@@ -57,6 +57,9 @@ flutter:
     - assets/icons/qris.png
     - assets/icons/cleaning.png
     - assets/icons/painting.png
+    - assets/icons/elh.png
+    - assets/icons/paint.png
+    - assets/icons/plumb.png
 
   fonts:
     - family: Inter

@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:servicehub/view/DetailPage.dart';
+import 'package:servicehub/view/ElectPage.dart';
+import 'package:servicehub/view/Paintpage.dart';
+import 'package:servicehub/view/Plumbingpage.dart';
+
+void main() {
+  runApp(Homescreen());
+}
 
 class Homescreen extends StatelessWidget {
   @override
@@ -25,10 +32,6 @@ class HomeScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.shopping_cart, color: Colors.white),
-            onPressed: () {},
-          ),
-          IconButton(
             icon: Icon(Icons.notifications, color: Colors.white),
             onPressed: () {},
           ),
@@ -42,7 +45,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               SearchBar(),
               SizedBox(height: 20),
-              SectionTitle(title: 'Popular Services on Service Hub'),
+              SectionTitle(title: 'Jasa yang Populer di ServiceHub'),
               PopularServicesSection(),
               SizedBox(height: 20),
               SectionTitle(title: 'Browse all categories'),
@@ -54,7 +57,6 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      // bottomNavigationBar: BottomNavBar(),
     );
   }
 }
@@ -80,6 +82,7 @@ class SearchBar extends StatelessWidget {
 class SectionTitle extends StatelessWidget {
   final String title;
   SectionTitle({required this.title});
+  
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -116,7 +119,9 @@ class PopularServicesSection extends StatelessWidget {
 class ServiceCard extends StatelessWidget {
   final String image;
   final String title;
+  
   ServiceCard({required this.image, required this.title});
+  
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -142,33 +147,39 @@ class CategoriesSection extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CategoryIcon(
-            title: 'Plumbing',
-            icon: Icons.plumbing,
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => DetailPage()));
-            }),
+          title: 'Plumbing',
+          icon: Icons.plumbing,
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Plumbingpage()));
+          },
+        ),
         CategoryIcon(
-            title: 'Carpentry',
-            icon: Icons.build,
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => DetailPage()));
-            }),
+          title: 'Electrical',
+          icon: Icons.electrical_services,
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Electpage()));
+          },
+        ),
         CategoryIcon(
-            title: 'Painting',
-            icon: Icons.format_paint,
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => DetailPage()));
-            }),
+          title: 'Painting',
+          icon: Icons.format_paint,
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Paintpage()));
+          },
+        ),
         CategoryIcon(
-            title: 'Cleaning',
-            icon: Icons.cleaning_services,
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => DetailPage()));
-            }),
+          title: 'Cleaning',
+          icon: Icons.cleaning_services,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DetailPage()),
+            );
+          },
+        ),
       ],
     );
   }
@@ -178,19 +189,24 @@ class CategoryIcon extends StatelessWidget {
   final String title;
   final IconData icon;
   final VoidCallback onTap;
-  CategoryIcon({required this.title, required this.icon, required this.onTap});
+
+  CategoryIcon({required this.title, required this. icon, required this.onTap});
+  
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CircleAvatar(
-          backgroundColor: Colors.grey[200],
-          radius: 30,
-          child: Icon(icon, color: Colors.orange, size: 30),
-        ),
-        SizedBox(height: 5),
-        Text(title),
-      ],
+    return GestureDetector(
+      onTap: onTap, 
+      child: Column(
+        children: [
+          CircleAvatar(
+            backgroundColor: Colors.grey[200],
+            radius: 30,
+            child: Icon(icon, color: Colors.orange, size: 30),
+          ),
+          SizedBox(height: 5),
+          Text(title),
+        ],
+      ),
     );
   }
 }
@@ -211,7 +227,9 @@ class HandymanServicesSection extends StatelessWidget {
 class HandymanCard extends StatelessWidget {
   final String image;
   final String title;
+  
   HandymanCard({required this.image, required this.title});
+  
   @override
   Widget build(BuildContext context) {
     return Expanded(
