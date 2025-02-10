@@ -63,8 +63,6 @@ class _SplashPageState extends State<SplashPage> {
                     ],
                   ),
                   const SizedBox(height: 20),
-
-         
                   SizedBox(
                     width: double.infinity, 
                     child: ElevatedButton(
@@ -72,7 +70,6 @@ class _SplashPageState extends State<SplashPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => const RegisterScreen()), // Navigate to RegisterPage
-                          MaterialPageRoute(builder: (context) => RegisterScreen()),
                         );
                       },
                       style: ElevatedButton.styleFrom(

@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:localstorage/localstorage.dart';
 import 'package:servicehub/tools/api.dart';
-import 'package:servicehub/view/homescreen.dart';
+import 'package:servicehub/view/bottom_nav.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,6 +14,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  
   String email = '';
   String password = '';
   final TextEditingController _emailController = TextEditingController();
@@ -27,16 +29,20 @@ class _LoginPageState extends State<LoginPage> {
                         };
 
     var response = jsonDecode(await login(data));
-
+    await initLocalStorage();
+    
     if (response['status'] != 200) {   
       print(response['error']);
 
     } else {
+      print(response);
+      localStorage.setItem('user_id', response['id'].toString() ?? "");
+
       Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) =>
-                Homescreen()), // Assuming AddresaccesPage is a StatelessWidget or StatefulWidget
+                BottomNav()), // Assuming AddresaccesPage is a StatelessWidget or StatefulWidget
       );
     }
                         

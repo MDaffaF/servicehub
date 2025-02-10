@@ -176,7 +176,7 @@ class CategoriesSection extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => DetailPage()),
+              MaterialPageRoute(builder: (context) => DetailPage(technician: {})),
             );
           },
         ),

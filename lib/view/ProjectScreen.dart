@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:servicehub/tools/api.dart';
+import 'package:servicehub/view/DetailPage.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,11 +19,19 @@ class MyApp extends StatelessWidget {
 }
 
 class ProjectsScreen extends StatefulWidget {
+
   @override
   _ProjectsScreenState createState() => _ProjectsScreenState();
 }
 
 class _ProjectsScreenState extends State<ProjectsScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    _getTechnicians();
+  }
+
   int _selectedTabIndex = 0;
 
   List<Map<String, String>> inProgressProjects = [
@@ -42,22 +53,24 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
 
   List<Map<String, String>> completedProjects = [];
 
-  List<Map<String, dynamic>> nearbyTechnicians = [
-    {
-      'name': 'John Doe',
-      'specialty': 'Electrician',
-      'rating': 4.5,
-      'price': '\$50/hour',
-      'photo': 'assets/icons/teknisi.png',
-    },
-    {
-      'name': 'Jane Smith',
-      'specialty': 'Plumber',
-      'rating': 4.7,
-      'price': '\$60/hour',
-      'photo': 'assets/icons/teknisi.png',
-    },
-  ];
+  List<Map<String, dynamic>> nearbyTechnicians = [];
+
+void _getTechnicians() async {
+  print("test");
+  try {
+    List<Map<String, dynamic>> response = await getTechnicians(); 
+    setState(() {
+      nearbyTechnicians = response ?? []; 
+    });
+    print("Nearby Technicians: $nearbyTechnicians"); 
+  } catch (e) {
+    print("Error fetching technicians: $e");
+    setState(() {
+      nearbyTechnicians = [];
+    });
+  }
+}
+
 
   void _markAsCompleted(int index) {
     setState(() {
@@ -115,6 +128,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
 
   int _getItemCount() {
     if (_selectedTabIndex == 0) {
+      print("Nearby Technicians length: ${nearbyTechnicians.length}");
       return nearbyTechnicians.length;
     } else if (_selectedTabIndex == 1) {
       return inProgressProjects.length;
@@ -144,6 +158,13 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   }
 
 Widget _buildTechnicianCard(Map<String, dynamic> technician) {
+  // Menambahkan pengecekan null dengan operator ?? untuk memberikan nilai default
+  String name = technician['name'] ?? 'Unknown Name';
+  String specialty = technician['specialty'] ?? 'No Specialty';
+  String photo = technician['photo'] ?? 'assets/icons/teknisi.png'; // Default image path
+  String price = technician['price'] ?? 'Not Available';
+  double rating = technician['rating'] ?? 0.0;
+
   return Card(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -156,7 +177,7 @@ Widget _buildTechnicianCard(Map<String, dynamic> technician) {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CircleAvatar(
-                backgroundImage: AssetImage(technician['photo']),
+                backgroundImage: AssetImage(photo),
                 radius: 30,
               ),
               SizedBox(width: 12),
@@ -164,11 +185,11 @@ Widget _buildTechnicianCard(Map<String, dynamic> technician) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    technician['name'],
+                    name,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                   Text(
-                    technician['specialty'],
+                    specialty,
                     style: TextStyle(color: Colors.grey[700], fontSize: 14),
                   ),
                 ],
@@ -180,7 +201,7 @@ Widget _buildTechnicianCard(Map<String, dynamic> technician) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${technician['price']}',
+                price,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
               ),
               Row(
@@ -188,7 +209,7 @@ Widget _buildTechnicianCard(Map<String, dynamic> technician) {
                   Icon(Icons.star, color: Colors.amber, size: 18),
                   SizedBox(width: 4),
                   Text(
-                    technician['rating'].toString() + "/5",
+                    '$rating/5',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -206,7 +227,10 @@ Widget _buildTechnicianCard(Map<String, dynamic> technician) {
                 ),
               ),
               onPressed: () {
-                // Tambahkan aksi untuk tombol detail
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DetailPage(technician: technician)),
+                );
               },
               child: Text(
                 'Detail',

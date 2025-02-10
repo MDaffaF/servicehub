@@ -1,10 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:servicehub/tools/api.dart';
+
 import 'CartScreen.dart';
 
-class DetailPage extends StatelessWidget {
+
+class DetailPage extends StatefulWidget {
+  final Map<String, dynamic> technician;
+
+  DetailPage({super.key, required this.technician});
+
+  @override
+  _DetailPageState createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  @override
+  void initState() {
+    super.initState();
+    print(widget.technician);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +62,7 @@ class DetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "House Cleaners",
+                    widget.technician['speciality'] ?? 'Job tidak ada',
                     style: GoogleFonts.poppins(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -53,7 +70,7 @@ class DetailPage extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    "We are a professional home cleaning service ready to help you create a clean, fresh, and comfortable environment. With an experienced team and the best equipment, we ensure every corner of your home is free from dust and dirt. Whether for routine cleaning, deep cleaning, or other special needs, we are here to provide the best solutions. Trust us with your home’s cleanliness and enjoy quality time without hassle!",
+                    widget.technician['description'] ?? 'Description tidak ada',
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                       color: Colors.grey[700],
@@ -65,7 +82,7 @@ class DetailPage extends StatelessWidget {
                     children: [
                       _infoItem(Icons.star, "4.8"),
                       _infoItem(Icons.local_shipping, "FREE"),
-                      _infoItem(Icons.attach_money, "20/hour"),
+                      _infoItem(Icons.attach_money, widget.technician['price'] ?? 'Price tidak ada'),
                       _infoItem(Icons.location_on, "3 Km"),
                     ],
                   ),
@@ -89,6 +106,7 @@ class DetailPage extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 15),
           ),
           onPressed: () {
+            addOrder(widget.technician);
             Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()));
           },
           child: Text(
@@ -168,5 +186,18 @@ class DetailPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  addOrder(Map data) {
+    Map dataOrder = {
+      "user_id": data['user_id'],
+      "job_id": data['id'],
+      "total_hour": 0,
+      "address": "",
+      "payment": "COD",
+      "status": "in cart",
+      "total_price": 0
+    };
+    addToCart(dataOrder);
   }
 }

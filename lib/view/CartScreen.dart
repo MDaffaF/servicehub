@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:servicehub/tools/api.dart';
 import 'package:servicehub/view/ProjectScreen.dart';
 
 void main() {
@@ -24,18 +27,57 @@ class MyApp extends StatelessWidget {
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
 
+  
+
   @override
   _CartScreenState createState() => _CartScreenState();
 }
 
 class _CartScreenState extends State<CartScreen> {
-  List<CartItem> cartItems = [
-    CartItem(title: "House Cleaners", price: 20, quantity: 2, unit: "/ Hour", imageUrl: "assets/images/hc.png"),
-    CartItem(title: "Electrical Help", price: 30, quantity: 1, unit: "/ Unit", imageUrl: "assets/images/eh.png"),
-  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _getListCart();
+  }
+
 
   String _address = "Ujung Berung City no 2 RT 11 RW 33 Bandung";
   bool _isEditing = false;
+
+  Map<String, dynamic> cart = {}; 
+
+  List<CartItem> cartItems = [
+  CartItem(title: "Electrical Help", price: 30, quantity: 1, unit: "/ Unit", imageUrl: "assets/images/eh.png"),
+];
+
+_getListCart() async {
+  var response = await getCart();
+  var cart = jsonDecode(response); // Decode the response
+
+  if (cart['status'] == 200 && cart['data'] != null) {
+    var cartData = cart['data'];
+
+    // Clear current cartItems and update with new items
+    cartItems.clear(); // Clear previous cartItems if needed
+
+    // Add a new CartItem based on the response
+    cartItems.add(
+      CartItem(
+        title: cartData['speciality'] ?? "Unknown", // Assuming speciality is available in the response
+        price: cartData['total_price'] ?? 0, // Use total_price from the response, adjust as needed
+        quantity: cartData['total_hour'] ?? 0, // You can modify this depending on the response
+        unit: "/ Hour",
+        imageUrl: "assets/images/hc.png", // You can change this based on the response
+      ),
+    );
+
+    // Debug print to check cartItems
+    // print();
+  } else {
+    print("Failed to fetch cart data or no data found.");
+  }
+}
 
   void _updateQuantity(int index, int delta) {
     setState(() {
