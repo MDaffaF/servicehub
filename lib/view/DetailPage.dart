@@ -53,29 +53,25 @@ class DetailPage extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    "Kami adalah layanan pembersihan rumah profesional yang siap membantu Anda menciptakan lingkungan yang bersih, segar, dan nyaman. Dengan tim berpengalaman dan peralatan terbaik, kami memastikan setiap sudut rumah Anda bebas dari debu dan kotoran. Baik untuk pembersihan rutin, deep cleaning, atau kebutuhan khusus lainnya, kami hadir untuk memberikan solusi terbaik. Percayakan kebersihan rumah Anda kepada kami dan nikmati waktu berkualitas tanpa repot!.",
+                    "We are a professional home cleaning service ready to help you create a clean, fresh, and comfortable environment. With an experienced team and the best equipment, we ensure every corner of your home is free from dust and dirt. Whether for routine cleaning, deep cleaning, or other special needs, we are here to provide the best solutions. Trust us with your home’s cleanliness and enjoy quality time without hassle!",
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                       color: Colors.grey[700],
                     ),
                   ),
                   SizedBox(height: 15),
-                  
-                  // Informasi Layanan
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       _infoItem(Icons.star, "4.8"),
                       _infoItem(Icons.local_shipping, "FREE"),
-                      _infoItem(Icons.attach_money, "20/Jam"),
+                      _infoItem(Icons.attach_money, "20/hour"),
                       _infoItem(Icons.location_on, "3 Km"),
                     ],
                   ),
                   SizedBox(height: 20),
-
-                  // Review Customer
-                  _reviewItem("Dadang", "Saya sangat puas dengan layanan pembersihan dari tim ini! Mereka datang tepat waktu, ramah, dan bekerja dengan sangat teliti. Rumah saya benar-benar terasa lebih bersih dan segar setelah mereka selesai. Satu-satunya alasan saya tidak memberikan bintang 5 adalah karena ada beberapa sudut kecil yang masih bisa lebih diperhatikan. Tapi secara keseluruhan, saya pasti akan menggunakan jasa mereka lagi!.", "DG"),
-                  _reviewItem("Jubaedah", "Layanan yang baik dan profesional! Tim house cleaners ini bekerja dengan cepat namun tetap detail dalam membersihkan setiap ruangan. Saya suka bagaimana mereka menggunakan produk pembersih yang ramah lingkungan. Namun, saya berharap mereka bisa sedikit lebih teliti dalam membersihkan bagian bawah perabot. Tapi selain itu, hasilnya memuaskan dan saya merekomendasikannya!", "JB"),
+                  _reviewItem("Dadang", "I am very satisfied with the cleaning service from this team! They arrived on time, were friendly, and worked very thoroughly. My house feels much cleaner and fresher after they finished. The only reason I didn't give 5 stars is that there were a few small corners that could have been cleaned more thoroughly. But overall, I will definitely use their service again!", "DG"),
+                  _reviewItem("Jubaedah", "Good and professional service! This house cleaning team worked quickly but remained detailed in cleaning every room. I like how they use eco-friendly cleaning products. However, I hope they can be a bit more thorough when cleaning under the furniture. But other than that, the results were satisfying, and I recommend them!", "JB"),
                 ],
               ),
             ),
@@ -96,7 +92,7 @@ class DetailPage extends StatelessWidget {
             Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()));
           },
           child: Text(
-            "Tambahkan ke Keranjang",
+            "Add to Cart",
             style: GoogleFonts.poppins(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -108,7 +104,6 @@ class DetailPage extends StatelessWidget {
     );
   }
 
-  // Widget untuk menampilkan informasi layanan
   Widget _infoItem(IconData icon, String text) {
     return Column(
       children: [
@@ -122,7 +117,6 @@ class DetailPage extends StatelessWidget {
     );
   }
 
-  // Widget untuk menampilkan ulasan pengguna
   Widget _reviewItem(String name, String review, String initials) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),

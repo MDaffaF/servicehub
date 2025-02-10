@@ -53,7 +53,6 @@ class _LoginPageState extends State<LoginPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            // Navigasi kembali ke halaman sebelumnya
             Navigator.pop(context);
           },
         ),
@@ -65,32 +64,21 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            // Judul Login
             const Text(
               'Login to your account',
               style: TextStyle(
-                fontFamily: 'Inter', // Use Inter font family
+                fontFamily: 'Inter',
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 20),
-
-            // Email Address
-            buildInputField('Email Address', 'Enter your email',
-                controller: _emailController),
-
+            buildInputField('Email Address', 'Enter your email', controller: _emailController),
             const SizedBox(height: 20),
-
-            // Password
-            buildInputField('Password', 'Enter your password',
-                obscureText: true, controller: _passwordController),
-
+            buildInputField('Password', 'Enter your password', obscureText: true, controller: _passwordController),
             const SizedBox(height: 20),
-
-            // Continue Button
             SizedBox(
-              width: double.infinity, // Tombol memenuhi lebar parent
+              width: double.infinity,
               child: ElevatedButton(
                 onPressed: _continueLogin,
                 style: ElevatedButton.styleFrom(
@@ -103,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: const Text(
                   'Continue',
                   style: TextStyle(
-                      fontFamily: 'Inter', // Use Inter font family
+                      fontFamily: 'Inter',
                       fontSize: 16,
                       color: Colors.white),
                 ),
@@ -115,7 +103,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // Fungsi untuk membangun input field
   Widget buildInputField(String label, String hint,
       {bool obscureText = false, TextEditingController? controller}) {
     return Padding(
@@ -126,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
           Text(
             label,
             style: const TextStyle(
-                fontFamily: 'Inter', // Use Inter font family
+                fontFamily: 'Inter',
                 fontSize: 16,
                 fontWeight: FontWeight.w500),
           ),

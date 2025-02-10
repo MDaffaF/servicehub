@@ -11,7 +11,6 @@ class _PaymentPageState extends State<PaymentPage> {
   String _selectedPaymentMethod = "COD";
 
   void _handlePayment() {
-    // Save or send payment data based on the selected method
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text("Payment method: $_selectedPaymentMethod")),
     );
