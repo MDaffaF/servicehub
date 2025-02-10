@@ -16,7 +16,7 @@ class _AccessPageState extends State<AccessPage> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/icons/backgroundSpalshWhite.png',
+              'assets/images/backgroundSpalshWhite.png',
               fit: BoxFit.cover,
             ),
           ),

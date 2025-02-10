@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,7 +21,7 @@ class ProjectsScreen extends StatefulWidget {
 }
 
 class _ProjectsScreenState extends State<ProjectsScreen> {
-  int _selectedTabIndex = 0; 
+  int _selectedTabIndex = 0;
 
   List<Map<String, String>> inProgressProjects = [
     {
@@ -43,12 +42,29 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
 
   List<Map<String, String>> completedProjects = [];
 
+  List<Map<String, dynamic>> nearbyTechnicians = [
+    {
+      'name': 'John Doe',
+      'specialty': 'Electrician',
+      'rating': 4.5,
+      'price': '\$50/hour',
+      'photo': 'assets/icons/teknisi.png',
+    },
+    {
+      'name': 'Jane Smith',
+      'specialty': 'Plumber',
+      'rating': 4.7,
+      'price': '\$60/hour',
+      'photo': 'assets/icons/teknisi.png',
+    },
+  ];
+
   void _markAsCompleted(int index) {
     setState(() {
       completedProjects.add(inProgressProjects[index]);
       inProgressProjects.removeAt(index);
       if (inProgressProjects.isEmpty) {
-        _selectedTabIndex = 1;
+        _selectedTabIndex = 2;
       }
     });
   }
@@ -59,17 +75,9 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
       appBar: AppBar(
         title: Text('Projects',
             style: GoogleFonts.inter(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black)),
+                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black)),
         backgroundColor: Colors.white,
         elevation: 0,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.filter_list, color: Colors.black),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: Column(
         children: [
@@ -77,65 +85,26 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             margin: EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               children: [
-                Expanded(
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: _selectedTabIndex == 0
-                          ? Colors.orange.shade100
-                          : Colors.grey.shade200,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _selectedTabIndex = 0;
-                      });
-                    },
-                    child: Text('In Progress',
-                        style: TextStyle(
-                            color: _selectedTabIndex == 0
-                                ? Colors.orange
-                                : Colors.grey)),
-                  ),
-                ),
+                _buildTabButton(0, 'Nearby Technicians'),
                 SizedBox(width: 8),
-                Expanded(
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: _selectedTabIndex == 1
-                          ? Colors.orange.shade100
-                          : Colors.grey.shade200,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _selectedTabIndex = 1;
-                      });
-                    },
-                    child: Text('Completed',
-                        style: TextStyle(
-                            color: _selectedTabIndex == 1
-                                ? Colors.orange
-                                : Colors.grey)),
-                  ),
-                ),
+                _buildTabButton(1, 'In Progress'),
+                SizedBox(width: 8),
+                _buildTabButton(2, 'Completed'),
               ],
             ),
           ),
           Expanded(
             child: ListView.builder(
               padding: EdgeInsets.all(16),
-              itemCount: _selectedTabIndex == 0
-                  ? inProgressProjects.length
-                  : completedProjects.length,
+              itemCount: _getItemCount(),
               itemBuilder: (context, index) {
-                var project = _selectedTabIndex == 0
-                    ? inProgressProjects[index]
-                    : completedProjects[index];
-                return _selectedTabIndex == 0
-                    ? _buildProjectCard(project, index)
-                    : _buildCompletedProjectCard(project);
+                if (_selectedTabIndex == 0) {
+                  return _buildTechnicianCard(nearbyTechnicians[index]);
+                } else if (_selectedTabIndex == 1) {
+                  return _buildProjectCard(inProgressProjects[index], index);
+                } else {
+                  return _buildCompletedProjectCard(completedProjects[index]);
+                }
               },
             ),
           ),
@@ -144,52 +113,126 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
     );
   }
 
+  int _getItemCount() {
+    if (_selectedTabIndex == 0) {
+      return nearbyTechnicians.length;
+    } else if (_selectedTabIndex == 1) {
+      return inProgressProjects.length;
+    } else {
+      return completedProjects.length;
+    }
+  }
+
+  Widget _buildTabButton(int index, String text) {
+    return Expanded(
+      child: TextButton(
+        style: TextButton.styleFrom(
+          backgroundColor:
+              _selectedTabIndex == index ? Colors.orange.shade100 : Colors.grey.shade200,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        ),
+        onPressed: () {
+          setState(() {
+            _selectedTabIndex = index;
+          });
+        },
+        child: Text(text,
+            style: TextStyle(
+                color: _selectedTabIndex == index ? Colors.orange : Colors.grey)),
+      ),
+    );
+  }
+
+Widget _buildTechnicianCard(Map<String, dynamic> technician) {
+  return Card(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    margin: EdgeInsets.symmetric(vertical: 8),
+    child: Padding(
+      padding: EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                backgroundImage: AssetImage(technician['photo']),
+                radius: 30,
+              ),
+              SizedBox(width: 12),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    technician['name'],
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  Text(
+                    technician['specialty'],
+                    style: TextStyle(color: Colors.grey[700], fontSize: 14),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '${technician['price']}',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+              ),
+              Row(
+                children: [
+                  Icon(Icons.star, color: Colors.amber, size: 18),
+                  SizedBox(width: 4),
+                  Text(
+                    technician['rating'].toString() + "/5",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(height: 8),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orange,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              onPressed: () {
+                // Tambahkan aksi untuk tombol detail
+              },
+              child: Text(
+                'Detail',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
   Widget _buildProjectCard(Map<String, String> project, int index) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      margin: EdgeInsets.symmetric(vertical: 8),
       child: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(project['title']!,
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                Text('Processing', style: TextStyle(color: Colors.grey)),
-              ],
-            ),
+            Text(project['title']!, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             SizedBox(height: 8),
-            Row(
-              children: [
-                Icon(Icons.calendar_today, size: 16, color: Colors.grey),
-                SizedBox(width: 8),
-                Text('Scheduled for ${project['date']}'),
-              ],
-            ),
-            SizedBox(height: 8),
-            Row(
-              children: [
-                Icon(Icons.access_time, size: 16, color: Colors.grey),
-                SizedBox(width: 8),
-                Text(project['time']!),
-              ],
-            ),
-            SizedBox(height: 16),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                side: BorderSide(color: Colors.black),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-              ),
               onPressed: () => _markAsCompleted(index),
-              child: Center(
-                child: Text('Mark as completed',
-                    style: TextStyle(color: Colors.black)),
-              ),
+              child: Text('Mark as completed'),
             ),
           ],
         ),
@@ -201,25 +244,15 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       color: Colors.green.shade100,
+      margin: EdgeInsets.symmetric(vertical: 8),
       child: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(project['title']!,
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                Icon(FontAwesomeIcons.solidCheckCircle,
-                    size: 18, color: Colors.green),
-              ],
-            ),
+            Text(project['title']!, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             SizedBox(height: 8),
-            Text('✅ Completed',
-                style: TextStyle(
-                    color: Colors.green, fontWeight: FontWeight.bold)),
+            Text('✅ Completed', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
           ],
         ),
       ),

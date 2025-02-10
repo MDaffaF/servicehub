@@ -37,7 +37,7 @@ class Electpage extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset("assets/icons/elh.png"),
+              child: Image.asset("assets/images/elh.png"),
             ),
             Padding(
               padding: EdgeInsets.all(16),

@@ -37,7 +37,7 @@ class DetailPage extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset("assets/icons/detail.png"),
+              child: Image.asset("assets/images/detail.png"),
             ),
             Padding(
               padding: EdgeInsets.all(16),

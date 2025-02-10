@@ -43,28 +43,29 @@ flutter_icons:
 flutter:
   uses-material-design: true
   assets:
-    - assets/icons/backgroundSpalsh.png
+    - assets/images/backgroundSpalsh.png
     - assets/icons/Logo_app.png
-    - assets/icons/backgroundSpalshWhite.png
+    - assets/images/backgroundSpalshWhite.png
     - assets/icons/Addres.png
     - assets/icons/Buyer.png
     - assets/icons/Worker.png
-    - assets/icons/detail.png
-    - assets/icons/eh.png
-    - assets/icons/hc.png
+    - assets/images/detail.png
+    - assets/images/eh.png
+    - assets/images/hc.png
     - assets/icons/cod.png
     - assets/icons/bank_transfer.png
     - assets/icons/qris.png
-    - assets/icons/cleaning.png
-    - assets/icons/painting.png
-    - assets/icons/elh.png
-    - assets/icons/paint.png
-    - assets/icons/plumb.png
+    - assets/images/cleaning.png
+    - assets/images/painting.png
+    - assets/images/elh.png
+    - assets/images/paint.png
+    - assets/images/plumb.png
     - assets/icons/rizal.png
     - assets/icons/agung.png
     - assets/icons/daffa.png
     - assets/icons/putri.png
-    - assets/icons/about_us.png
+    - assets/images/about_us.png
+    - assets/icons/teknisi.png
 
   fonts:
     - family: Inter
