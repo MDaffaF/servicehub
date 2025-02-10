@@ -1,4 +1,4 @@
-import 'dart:convert'; // Untuk encode/decode JSON
+import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:localstorage/localstorage.dart';
@@ -8,19 +8,18 @@ var logger = Logger(
   printer: PrettyPrinter(),
 );
 
-final baseUrl = 'https://occasional-milena-afung22-768e817f.koyeb.app/';
-// final baseUrl = 'http://10.0.2.2:3000/';
+// final baseUrl = 'https://occasional-milena-afung22-768e817f.koyeb.app/';
+final baseUrl = 'http://10.0.2.2:3000/';
 
 Future<void> postUsers(Map data) async {
 
-  // URL API yang akan dikirim data
   try {
     final response = await http.post(
       Uri.parse('${baseUrl}user'),
       headers: {
-        'Content-Type': 'application/json', // Set header agar API tahu kita mengirim JSON
+        'Content-Type': 'application/json', 
       },
-      body: jsonEncode(data), // Konversi Map ke JSON
+      body: jsonEncode(data), 
     );
 
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -34,14 +33,71 @@ Future<void> postUsers(Map data) async {
   }
 }
 
+
+Future<String> editUsers(Map data) async {
+  
+  print(data);
+
+  try {
+    final response = await http.patch(
+      Uri.parse('${baseUrl}user/${data['id']}'),
+      headers: {
+        'Content-Type': 'application/json', 
+      },
+      body: jsonEncode({
+        "email": data['email'],
+        "first_name": data['first_name'],
+        "last_name": data['last_name'],
+        "password": data['password'],
+      }), 
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print('Success: ${response.body}');
+      return response.body;
+    } else {
+      print('Failed: ${response.statusCode} - ${response.body}');
+      return "Edit Failed";
+    }
+  } catch (e) {
+    print('Error: $e');
+    return "Edit Failed";
+  } 
+}
+
+Future<String> deleteUsers(Map data) async {
+  
+  print(data);
+
+  try {
+    final response = await http.delete(
+      Uri.parse('${baseUrl}user/${data['id']}'),
+      headers: {
+        'Content-Type': 'application/json', 
+      },
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) { 
+      print('Success: ${response.body}');
+      return "Delete Success";
+    } else {
+      print('Failed: ${response.statusCode} - ${response.body}');
+      return "Delete Failed";
+    } 
+  } catch (e) {
+    print('Error: $e');
+    return "Delete Failed";
+  }
+}
+
 Future<String> login(Map data) async {
   try {
     final response = await http.post(
       Uri.parse('${baseUrl}user/login'),
       headers: {
-        'Content-Type': 'application/json', // Set header agar API tahu kita mengirim JSON
+        'Content-Type': 'application/json', 
       },
-      body: jsonEncode(data), // Konversi Map ke JSON
+      body: jsonEncode(data), 
     );
 
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -63,11 +119,11 @@ Future<String> getOneUser({required int id}) async {
     final response = await http.get(Uri.parse('${baseUrl}user/$id'));
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      // print('Success: ${response.body}');
-      return response.body; // Return raw JSON string
+
+      return response.body; 
     } else {
       print('Failed: ${response.statusCode} - ${response.body}');
-      return '{"error": "User not found"}'; // Return valid JSON format
+      return '{"error": "User not found"}'; 
     }
   } catch (e) {
     print('Error: $e');
@@ -121,14 +177,14 @@ Future<List<Map<String, dynamic>>> getTechnicians() async {
 
 Future<void> addToCart(Map data) async {
 
-  // URL API yang akan dikirim data
+
   try {
     final response = await http.post(
       Uri.parse('${baseUrl}order'),
       headers: {
-        'Content-Type': 'application/json', // Set header agar API tahu kita mengirim JSON
+        'Content-Type': 'application/json',
       },
-      body: jsonEncode(data), // Konversi Map ke JSON
+      body: jsonEncode(data),
     );
 
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -166,33 +222,30 @@ Future<String> getCart() async {
     final response = await http.post(
       Uri.parse('${baseUrl}order/cart'),
       headers: {
-        'Content-Type': 'application/json', // Set header agar API tahu kita mengirim JSON
+        'Content-Type': 'application/json', 
       },
       body: jsonEncode({
         "user_id": localStorage.getItem('user_id'),
         "status": "in cart"
-      }), // Konversi Map ke JSON
+      }),
     );
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       logger.i(response.body);
       print('Success: ${response.body}');
 
-      var dataCart = [];  // Initialize as an empty list
-      var responseBody = jsonDecode(response.body);  // Decode the JSON response
+      var dataCart = [];  
+      var responseBody = jsonDecode(response.body);  
 
-      // Access the 'data' field which is a map (not a list)
       var data = responseBody['data'];
 
-      // Since 'data' is a map, we need to handle it as such
       if (data != null) {
-        // For example, if you want to extract job_id from the map and fetch job details
+
         String jobJson = await getOneJob(id: data['job_id']);
         try {
           print(jsonDecode(jobJson));
           Map<String, dynamic> temp = jsonDecode(jobJson);
 
-          // Add the job details to dataCart (based on the 'data' map)
           dataCart.add({
             "id": data['id'],
             "user_id": data['user_id'],
@@ -208,10 +261,9 @@ Future<String> getCart() async {
         print("No 'data' found in response.");
       }
 
-      // Return the processed data (or do something with dataCart)
       print("Final Data: ${jsonEncode(dataCart)}");
 
-      return response.body;
+      return dataCart.toString();
     } else {
       print('Failed: ${response.statusCode} - ${response.body}');
       return "error";

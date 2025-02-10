@@ -3,8 +3,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:servicehub/tools/api.dart';
 
-import 'CartScreen.dart';
-
 
 class DetailPage extends StatefulWidget {
   final Map<String, dynamic> technician;
@@ -107,7 +105,7 @@ class _DetailPageState extends State<DetailPage> {
           ),
           onPressed: () {
             addOrder(widget.technician);
-            Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()));
+            // Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()));
           },
           child: Text(
             "Add to Cart",

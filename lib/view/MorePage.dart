@@ -3,6 +3,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:servicehub/view/PaymentPage.dart';
 import 'package:servicehub/view/about_us.dart';
 import 'package:servicehub/view/addrespage.dart';
+import 'package:servicehub/view/edit_profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -123,6 +124,12 @@ class MoreScreen extends StatelessWidget {
         "title": "About Us",
         "color": Colors.cyan,
         "page": AboutUsPage()
+      },
+      {
+        "icon": Ionicons.pencil,
+        "title": "Edit Profile",
+        "color": Colors.grey,
+        "page": EditScreen()
       },
     ];
 

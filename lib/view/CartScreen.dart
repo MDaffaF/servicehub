@@ -53,27 +53,27 @@ class _CartScreenState extends State<CartScreen> {
 
 _getListCart() async {
   var response = await getCart();
-  var cart = jsonDecode(response); // Decode the response
+  var cart = jsonDecode(response); 
+  print(response);
 
   if (cart['status'] == 200 && cart['data'] != null) {
     var cartData = cart['data'];
 
-    // Clear current cartItems and update with new items
-    cartItems.clear(); // Clear previous cartItems if needed
-
-    // Add a new CartItem based on the response
+    cartItems.clear(); 
+    print(cartData);
     cartItems.add(
       CartItem(
-        title: cartData['speciality'] ?? "Unknown", // Assuming speciality is available in the response
-        price: cartData['total_price'] ?? 0, // Use total_price from the response, adjust as needed
-        quantity: cartData['total_hour'] ?? 0, // You can modify this depending on the response
+        title: cartData['speciality'] ?? "Unknown", 
+        price: cartData['total_price'] ?? 0, 
+        quantity: cartData['total_hour'] ?? 0, 
         unit: "/ Hour",
-        imageUrl: "assets/images/hc.png", // You can change this based on the response
+        imageUrl: "assets/images/hc.png", 
       ),
     );
 
-    // Debug print to check cartItems
-    // print();
+    print(cartItems[0]);
+
+
   } else {
     print("Failed to fetch cart data or no data found.");
   }

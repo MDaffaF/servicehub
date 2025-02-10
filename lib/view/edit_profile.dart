@@ -1,16 +1,19 @@
-import 'package:flutter/material.dart';
-import 'package:servicehub/tools/api.dart';
-import 'package:servicehub/view/login_page.dart';
+import 'dart:convert';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+import 'package:flutter/material.dart';
+import 'package:localstorage/localstorage.dart';
+import 'package:servicehub/tools/api.dart';
+import 'package:servicehub/view/splash_page.dart';
+
+class EditScreen extends StatefulWidget {
+  const EditScreen({super.key});
 
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  _EditScreenState createState() => _EditScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  bool _isChecked = false;
+class _EditScreenState extends State<EditScreen> {
+  // bool _isChecked = false;
   bool _isPasswordValid = false;
   bool _isPasswordLengthValid = false;
   bool _hasUpperCase = false;
@@ -22,8 +25,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String firstname = "";
   String lastname = "";
 
+@override
+  void initState() {
+    super.initState();
+    _getDataUser();
+  }
 
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _firstnameController = TextEditingController();
+  TextEditingController _lastnameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+
+  void _getDataUser() async {
+  await initLocalStorage();
+  var userId =  localStorage.getItem('user_id');
+  print(userId);
+    var response = await getOneUser(id: int.parse(userId ?? "0") );
+    print(response);
+    setState(() {
+      var data = jsonDecode(response);
+      setState(() {
+        _emailController = TextEditingController(text: data['email']);
+        _firstnameController = TextEditingController(text: data['first_name']);
+        _lastnameController = TextEditingController(text: data['last_name']);
+        _passwordController = TextEditingController(text: data['password']);
+        email = data['email'] ?? "";
+        firstname = data['first_name'] ?? "";
+        lastname = data['last_name'] ?? "";
+        password = data['password'] ?? "";
+      });
+    });
+  }
+
 
   void _validatePassword(String password) {
     setState(() {
@@ -37,29 +70,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
   }
 
-  // Fungsi untuk berpindah ke AddresAccessPage
-  Future<void> _onNextPressed() async {
-    print({_isChecked, _isPasswordValid});
-    if (_isChecked && _isPasswordValid) {
-      final Map<String, dynamic> data = {
-                          'first_name': firstname,
-                          'last_name': lastname,
-                          'email': email,
-                          'password': password,
-                          'role': false
-                        };
-                        await postUsers(data);
-                        logger.i(data);
-      Navigator.push(
+  void _deleteUser() async {
+    var response = await deleteUsers({"id": localStorage.getItem('user_id')});
+    print(response);
+    if (response == "Delete Success") {
+      Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const LoginPage()),
-      );
-    } else {
-      // Tampilkan pesan jika kriteria password atau checkbox belum terpenuhi
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please agree to the terms and ensure your password is valid.')),
+        MaterialPageRoute(
+            builder: (context) =>
+                const SplashPage()), 
       );
     }
+  }
+
+  void _editUser() async {
+    var response = await editUsers({
+      "id": localStorage.getItem('user_id'),
+      "email": email,
+      "first_name": firstname,
+      "last_name": lastname,
+      "password": password
+    });
+    print(jsonDecode(response));
   }
 
   @override
@@ -79,7 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Complete your info',
+              'Change your profile',
               style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 28,
@@ -87,59 +119,56 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            buildInputField('First Name', 'Enter your first name'),
-            buildInputField('Last Name', 'Enter your last name'),
-            buildInputField('Email Address', 'Enter your email address'),
+            buildInputField('First Name', 'Enter your first name', obscureText: false, controller: _firstnameController),
+            buildInputField('Last Name', 'Enter your last name', obscureText: false, controller: _lastnameController),
+            buildInputField('Email Address', 'Enter your email address', obscureText: false, controller: _emailController),
             buildInputField('Password', 'Enter your password', obscureText: true, controller: _passwordController),
             const SizedBox(height: 10),
             buildPasswordCriteria(),
             const SizedBox(height: 20),
-            const Text(
-              'By selecting Next, I agree to ServiceHub terms of service, Payment Terms of Service & Privacy Policy.',
-              style: TextStyle(
-                fontFamily: 'Inter',
-                fontSize: 14,
-              ),
-            ),
+            const Spacer(),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Checkbox(
-                  value: _isChecked,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      _isChecked = value ?? false;
-                    });
-                  },
-                ),
-                const Expanded(
-                  child: Text(
-                    'I agree to the terms and conditions',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 14,
+              SizedBox(
+                width: 170,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: _deleteUser,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const Spacer(),
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: ElevatedButton(
-                onPressed: _isChecked ? _onNextPressed : null,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
+                  child: const Text(
+                    'Delete',
+                    style: TextStyle(fontFamily: 'Inter', fontSize: 16, color: Colors.white),
                   ),
                 ),
-                child: const Text(
-                  'Next',
-                  style: TextStyle(fontFamily: 'Inter', fontSize: 16, color: Colors.white),
+              ),
+              Spacer(),
+              SizedBox(
+                width: 170,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: _editUser,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orange,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                  ),
+                  child: const Text(
+                    'Edit',
+                    style: TextStyle(fontFamily: 'Inter', fontSize: 16, color: Colors.white),
+                  ),
                 ),
               ),
-            ),
+              
+            ],),
+            
           ],
         ),
       ),

@@ -20,9 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  // Fungsi untuk menekan tombol Continue
   Future<void> _continueLogin() async {
-    // Logic untuk proses login (misalnya, validasi dan navigasi ke halaman lain)
     final Map<String, dynamic> data = {
                           'email': _emailController.text,
                           'password': _passwordController.text,
@@ -36,7 +34,9 @@ class _LoginPageState extends State<LoginPage> {
 
     } else {
       print(response);
-      localStorage.setItem('user_id', response['id'].toString() ?? "");
+      print(response['data']['id']);
+      // user = response['data']['user'];
+      localStorage.setItem('user_id', response['data']['id'].toString() ?? "0");
 
       Navigator.push(
         context,
