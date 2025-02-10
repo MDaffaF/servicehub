@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:localstorage/localstorage.dart';
 import 'package:servicehub/tools/api.dart';
 import 'package:servicehub/view/bottom_nav.dart';
 
@@ -57,12 +58,15 @@ class _LoginPageState extends State<LoginPage> {
       'password': _passwordController.text,
     };
 
+    await initLocalStorage();
     try {
       var response = jsonDecode(await login(data));
 
       if (response['status'] != 200) {
         showSnackBar("Login gagal! Email atau password salah.");
       } else {
+        print(response['data']['id'].toString());
+        localStorage.setItem('user_id', response['data']['id'].toString());
         showSnackBar("Login berhasil!", bgColor: Colors.green);
 
         // Delay sebelum navigasi agar SnackBar terlihat

@@ -74,6 +74,7 @@ class _EditScreenState extends State<EditScreen> {
     var response = await deleteUsers({"id": localStorage.getItem('user_id')});
     print(response);
     if (response == "Delete Success") {
+      localStorage.clear();
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

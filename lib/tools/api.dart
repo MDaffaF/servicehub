@@ -8,8 +8,8 @@ var logger = Logger(
   printer: PrettyPrinter(),
 );
 
-// final baseUrl = 'https://occasional-milena-afung22-768e817f.koyeb.app/';
-final baseUrl = 'http://10.0.2.2:3000/';
+final baseUrl = 'https://occasional-milena-afung22-768e817f.koyeb.app/';
+// final baseUrl = 'http://10.0.2.2:3000/';
 
 Future<void> postUsers(Map data) async {
 
