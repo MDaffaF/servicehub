@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:servicehub/tools/api.dart';
+
 import 'addresacces_page.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -16,6 +18,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _hasLowerCase = false;
   bool _hasDigit = false;
   bool _hasSpecialCharacter = false;
+  String password = "";
+  String email = "";
+  String firstname = "";
+  String lastname = "";
+
 
   TextEditingController _passwordController = TextEditingController();
 
@@ -33,8 +40,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   // Fungsi untuk berpindah ke AddresAccessPage
-  void _onNextPressed() {
+  Future<void> _onNextPressed() async {
     if (_isChecked && _isPasswordValid) {
+      final Map<String, dynamic> data = {
+                          'first_name': firstname,
+                          'last_name': lastname,
+                          'email': email,
+                          'password': password,
+                          'role': false
+                        };
+                        await postUsers(data);
+                        logger.i(data);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const AccessPage()),
@@ -156,6 +172,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
             onChanged: (value) {
               if (label == 'Password') {
                 _validatePassword(value);
+                setState(() {
+                  password = value;
+                });
+              }
+              if (label == 'Email Address') {
+                setState(() {
+                  email = value;
+                });
+              }
+              if (label == 'First Name') {
+                setState(() {
+                  firstname = value;
+                });
+              }
+              if (label == 'Last Name') {
+                setState(() {
+                  lastname = value;
+                });
               }
             },
             decoration: InputDecoration(

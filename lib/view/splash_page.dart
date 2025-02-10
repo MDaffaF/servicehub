@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:servicehub/view/register_page.dart';
+
 import 'login_page.dart'; // Pastikan mengimpor halaman login_page.dart
-import 'signup_page.dart'; // Pastikan mengimpor halaman signup_page.dart
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -73,7 +74,7 @@ class _SplashPageState extends State<SplashPage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const SignUpPage()),
+                          MaterialPageRoute(builder: (context) => const RegisterScreen()), // Navigate to RegisterPage
                         );
                       },
                       style: ElevatedButton.styleFrom(

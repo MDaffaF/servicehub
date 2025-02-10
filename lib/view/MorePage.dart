@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:servicehub/view/CartScreen.dart';
-import 'package:servicehub/view/DetailPage.dart';
 import 'package:servicehub/view/PaymentPage.dart';
-import 'package:servicehub/view/ProjectScreen.dart';
 import 'package:servicehub/view/about_us.dart';
 import 'package:servicehub/view/addrespage.dart';
-import 'package:servicehub/view/homescreen.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +21,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MoreScreen extends StatelessWidget {
-  const MoreScreen({Key? key}) : super(key: key);
+  const MoreScreen({super.key});
 
   void _showRatingDialog(BuildContext context) {
     double rating = 0;

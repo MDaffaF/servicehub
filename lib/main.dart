@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'splash_page.dart'; // Ganti dengan halaman utama kamu
+import 'package:servicehub/view/splash_page.dart';
 
 void main() {
   runApp(const MyApp());

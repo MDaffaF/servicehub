@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:servicehub/view/DetailPage.dart';
 import 'package:servicehub/view/bottom_nav.dart';
-import 'package:servicehub/view/homescreen.dart';
+
 import 'login_page.dart';
 
 class RolePage extends StatefulWidget {

@@ -1,7 +1,9 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:servicehub/role_page.dart';
-import 'package:servicehub/view/MorePage.dart';
-import 'addresacces_page.dart'; // Make sure the import is correct
+import 'package:servicehub/tools/api.dart';
+import 'package:servicehub/view/homescreen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,22 +13,37 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String email = '';
+  String password = '';
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   // Fungsi untuk menekan tombol Continue
-  void _continueLogin() {
+  Future<void> _continueLogin() async {
     // Logic untuk proses login (misalnya, validasi dan navigasi ke halaman lain)
-    print(
-        "Email: ${_emailController.text}, Password: ${_passwordController.text}");
+    final Map<String, dynamic> data = {
+                          'email': _emailController.text,
+                          'password': _passwordController.text,
+                        };
 
-    // Setelah login berhasil, navigasi ke AddresaccesPage
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) =>
-              AccessPage()), // Assuming AddresaccesPage is a StatelessWidget or StatefulWidget
-    );
+    var response = jsonDecode(await login(data));
+
+    if (response['status'] != 200) {   
+      print(response['error']);
+
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                Homescreen()), // Assuming AddresaccesPage is a StatelessWidget or StatefulWidget
+      );
+    }
+                        
+    if (kDebugMode) {
+      print(
+        "Email: ${_emailController.text}, Password: ${_passwordController.text}");
+    }
   }
 
   @override
@@ -77,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
               child: ElevatedButton(
                 onPressed: _continueLogin,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange,
+                  backgroundColor: email.isNotEmpty && password.isNotEmpty ? Colors.orange : Colors.grey,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50.0),
@@ -117,6 +134,18 @@ class _LoginPageState extends State<LoginPage> {
           TextField(
             controller: controller,
             obscureText: obscureText,
+            onChanged: (value) {
+              if (label == 'Password') {
+                setState(() {
+                  password = value;
+                });
+              }
+              if (label == 'Email Address') {
+                setState(() {
+                  email = value;
+                });
+              }
+            },
             decoration: InputDecoration(
               hintText: hint,
               filled: true,
