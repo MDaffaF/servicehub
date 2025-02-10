@@ -12,11 +12,10 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.0.17
-  ionicons: ^0.2.2  # Tambahkan dependensi ionicons untuk ikon
+  ionicons: ^0.2.2
   http: ^1.3.0
   logger: ^2.5.0
   localstorage: ^5.0.0
-
 
 dev_dependencies:
   flutter_test:
@@ -28,8 +27,6 @@ dev_dependencies:
   flutter_rating_bar: ^4.0.1
   font_awesome_flutter: ^10.5.0
   in_app_review: ^2.0.6
-  ionicons: ^0.2.2
-
 
 flutter_native_splash:
   color: "#FFFFFF"

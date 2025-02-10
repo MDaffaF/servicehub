@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:localstorage/localstorage.dart';
 import 'package:servicehub/tools/api.dart';
 import 'package:servicehub/view/bottom_nav.dart';
 
@@ -14,41 +12,74 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  
-  String email = '';
-  String password = '';
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool isButtonActive = false;
 
-  // Fungsi untuk menekan tombol Continue
+  @override
+  void initState() {
+    super.initState();
+
+    // Tambahkan listener untuk mendeteksi perubahan input
+    _emailController.addListener(_updateButtonState);
+    _passwordController.addListener(_updateButtonState);
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _updateButtonState() {
+    setState(() {
+      isButtonActive = _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty;
+    });
+  }
+
+  // Fungsi menampilkan SnackBar
+  void showSnackBar(String message, {Color bgColor = Colors.red}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: bgColor,
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
+  // Fungsi login
   Future<void> _continueLogin() async {
-    // Logic untuk proses login (misalnya, validasi dan navigasi ke halaman lain)
     final Map<String, dynamic> data = {
-                          'email': _emailController.text,
-                          'password': _passwordController.text,
-                        };
+      'email': _emailController.text,
+      'password': _passwordController.text,
+    };
 
-    var response = jsonDecode(await login(data));
-    await initLocalStorage();
-    
-    if (response['status'] != 200) {   
-      print(response['error']);
+    try {
+      var response = jsonDecode(await login(data));
 
-    } else {
-      print(response);
-      localStorage.setItem('user_id', response['id'].toString() ?? "");
+      if (response['status'] != 200) {
+        showSnackBar("Login gagal! Email atau password salah.");
+      } else {
+        showSnackBar("Login berhasil!", bgColor: Colors.green);
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                BottomNav()), // Assuming AddresaccesPage is a StatelessWidget or StatefulWidget
-      );
+        // Delay sebelum navigasi agar SnackBar terlihat
+        Future.delayed(const Duration(seconds: 1), () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => BottomNav(),
+            ),
+          );
+        });
+      }
+    } catch (e) {
+      showSnackBar("Terjadi kesalahan. Silakan coba lagi.");
     }
-                        
+
     if (kDebugMode) {
-      print(
-        "Email: ${_emailController.text}, Password: ${_passwordController.text}");
+      print("Email: ${_emailController.text}, Password: ${_passwordController.text}");
     }
   }
 
@@ -58,9 +89,7 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
         ),
         backgroundColor: Colors.white,
         elevation: 0,
@@ -86,9 +115,9 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: _continueLogin,
+                onPressed: isButtonActive ? _continueLogin : null,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: email.isNotEmpty && password.isNotEmpty ? Colors.orange : Colors.grey,
+                  backgroundColor: isButtonActive ? Colors.orange : Colors.grey,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50.0),
@@ -97,9 +126,10 @@ class _LoginPageState extends State<LoginPage> {
                 child: const Text(
                   'Continue',
                   style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 16,
-                      color: Colors.white),
+                    fontFamily: 'Inter',
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
@@ -119,26 +149,15 @@ class _LoginPageState extends State<LoginPage> {
           Text(
             label,
             style: const TextStyle(
-                fontFamily: 'Inter',
-                fontSize: 16,
-                fontWeight: FontWeight.w500),
+              fontFamily: 'Inter',
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           const SizedBox(height: 5),
           TextField(
             controller: controller,
             obscureText: obscureText,
-            onChanged: (value) {
-              if (label == 'Password') {
-                setState(() {
-                  password = value;
-                });
-              }
-              if (label == 'Email Address') {
-                setState(() {
-                  email = value;
-                });
-              }
-            },
             decoration: InputDecoration(
               hintText: hint,
               filled: true,
