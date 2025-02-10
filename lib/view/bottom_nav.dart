@@ -39,8 +39,7 @@ class _BottomNavState extends State<BottomNav> {
         onTap: _onItemTapped,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Explore'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.assignment), label: 'Projects'),
+          BottomNavigationBarItem(icon: Icon(Icons.assignment), label: 'Projects'),
           BottomNavigationBarItem(icon: Icon(Icons.trolley), label: 'Cart'),
           BottomNavigationBarItem(icon: Icon(Icons.more_horiz), label: 'More'),
         ],

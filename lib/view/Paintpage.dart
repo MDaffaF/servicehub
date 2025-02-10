@@ -37,7 +37,7 @@ class PaintPage extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset("assets/icons/paint.png"),
+              child: Image.asset("assets/images/paint.png"),
             ),
             Padding(
               padding: EdgeInsets.all(16),

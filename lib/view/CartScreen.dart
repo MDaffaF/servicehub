@@ -30,8 +30,8 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   List<CartItem> cartItems = [
-    CartItem(title: "House Cleaners", price: 20, quantity: 2, unit: "/ Hour", imageUrl: "assets/icons/hc.png"),
-    CartItem(title: "Electrical Help", price: 30, quantity: 1, unit: "/ Unit", imageUrl: "assets/icons/eh.png"),
+    CartItem(title: "House Cleaners", price: 20, quantity: 2, unit: "/ Hour", imageUrl: "assets/images/hc.png"),
+    CartItem(title: "Electrical Help", price: 30, quantity: 1, unit: "/ Unit", imageUrl: "assets/images/eh.png"),
   ];
 
   String _address = "Ujung Berung City no 2 RT 11 RW 33 Bandung";

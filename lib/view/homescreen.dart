@@ -107,10 +107,10 @@ class PopularServicesSection extends StatelessWidget {
     return Row(
       children: [
         ServiceCard(
-            image: 'assets/icons/cleaning.png', title: 'Cleaning the house'),
+            image: 'assets/images/cleaning.png', title: 'Cleaning the house'),
         SizedBox(width: 10),
         ServiceCard(
-            image: 'assets/icons/painting.png', title: 'Painting the house'),
+            image: 'assets/images/painting.png', title: 'Painting the house'),
       ],
     );
   }
@@ -216,9 +216,9 @@ class HandymanServicesSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        HandymanCard(image: 'assets/icons/detail.png', title: 'House Cleaners'),
+        HandymanCard(image: 'assets/images/detail.png', title: 'House Cleaners'),
         SizedBox(width: 10),
-        HandymanCard(image: 'assets/icons/eh.png', title: 'Electrical Help'),
+        HandymanCard(image: 'assets/images/eh.png', title: 'Electrical Help'),
       ],
     );
   }
