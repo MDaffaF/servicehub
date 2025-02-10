@@ -19,32 +19,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   TextEditingController _passwordController = TextEditingController();
 
-  // Fungsi untuk memvalidasi password sesuai kriteria
   void _validatePassword(String password) {
     setState(() {
       _hasUpperCase = password.contains(RegExp(r'[A-Z]'));
       _hasLowerCase = password.contains(RegExp(r'[a-z]'));
       _hasDigit = password.contains(RegExp(r'[0-9]'));
-      _hasSpecialCharacter = password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+      _hasSpecialCharacter = password.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'));
       _isPasswordLengthValid = password.length >= 8;
       _isPasswordValid =
           _hasUpperCase && _hasLowerCase && _hasDigit && _hasSpecialCharacter && _isPasswordLengthValid;
     });
   }
 
-  // Fungsi untuk berpindah ke AddresAccessPage
   void _onNextPressed() {
-    if (_isChecked && _isPasswordValid) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const AccessPage()),
-      );
-    } else {
-      // Tampilkan pesan jika kriteria password atau checkbox belum terpenuhi
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please agree to the terms and ensure your password is valid.')),
-      );
-    }
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const AccessPage()),
+    );
   }
 
   @override
@@ -66,7 +57,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             const Text(
               'Complete your info',
               style: TextStyle(
-                fontFamily: 'Inter', // Applying the Inter font
+                fontFamily: 'Inter',
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
               ),
@@ -80,14 +71,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
             buildPasswordCriteria(),
             const SizedBox(height: 20),
             const Text(
-              'By selecting Next, I agree to ServiceHub terms of service, '
-              'Payment Terms of Service & Privacy Policy.',
+              'By selecting Next, I agree to ServiceHub terms of service, Payment Terms of Service & Privacy Policy.',
               style: TextStyle(
-                fontFamily: 'Inter', // Applying the Inter font
+                fontFamily: 'Inter',
                 fontSize: 14,
               ),
             ),
-            // Checkbox aligned to the left of the text
             Row(
               children: [
                 Checkbox(
@@ -102,7 +91,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Text(
                     'I agree to the terms and conditions',
                     style: TextStyle(
-                      fontFamily: 'Inter', // Applying the Inter font
+                      fontFamily: 'Inter',
                       fontSize: 14,
                     ),
                   ),
@@ -114,7 +103,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
-                onPressed: _isChecked && _isPasswordValid ? _onNextPressed : null, // Disable button if not checked or invalid password
+                onPressed: _isChecked ? _onNextPressed : null,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.orange,
                   shape: RoundedRectangleBorder(
@@ -133,7 +122,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  // Fungsi untuk membangun input field
   Widget buildInputField(String label, String hint,
       {bool obscureText = false, TextEditingController? controller}) {
     return Padding(
@@ -144,7 +132,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           Text(
             label,
             style: const TextStyle(
-              fontFamily: 'Inter', // Applying the Inter font
+              fontFamily: 'Inter',
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
@@ -173,33 +161,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  // Fungsi untuk menampilkan kriteria password
   Widget buildPasswordCriteria() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        PasswordCriteria(
-          text: 'One letter (a-z)',
-          isValid: _hasLowerCase,
-        ),
-        PasswordCriteria(
-          text: 'One number (0-9)',
-          isValid: _hasDigit,
-        ),
-        PasswordCriteria(
-          text: 'One special character',
-          isValid: _hasSpecialCharacter,
-        ),
-        PasswordCriteria(
-          text: '8 characters minimum',
-          isValid: _isPasswordLengthValid,
-        ),
+        PasswordCriteria(text: 'One letter (a-z)', isValid: _hasLowerCase),
+        PasswordCriteria(text: 'One number (0-9)', isValid: _hasDigit),
+        PasswordCriteria(text: 'One special character', isValid: _hasSpecialCharacter),
+        PasswordCriteria(text: '8 characters minimum', isValid: _isPasswordLengthValid),
       ],
     );
   }
 }
 
-// Widget untuk menampilkan kriteria password dengan validasi
 class PasswordCriteria extends StatelessWidget {
   final String text;
   final bool isValid;
@@ -219,7 +193,7 @@ class PasswordCriteria extends StatelessWidget {
         Text(
           text,
           style: const TextStyle(
-            fontFamily: 'Inter', // Applying the Inter font
+            fontFamily: 'Inter',
             fontSize: 14,
           ),
         ),

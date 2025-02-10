@@ -22,7 +22,7 @@ class ProjectsScreen extends StatefulWidget {
 }
 
 class _ProjectsScreenState extends State<ProjectsScreen> {
-  int _selectedTabIndex = 0; // 0 = "In Progress", 1 = "Completed"
+  int _selectedTabIndex = 0; 
 
   List<Map<String, String>> inProgressProjects = [
     {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart'; // Pastikan mengimpor halaman login_page.dart
-import 'signup_page.dart'; // Pastikan mengimpor halaman signup_page.dart
+import 'package:servicehub/register_page.dart';
+import 'login_page.dart'; 
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -15,7 +15,6 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       body: Stack(
         children: [
-          // Background Image
           Positioned.fill(
             child: Image.asset(
               'assets/icons/backgroundSpalsh.png',
@@ -28,7 +27,6 @@ class _SplashPageState extends State<SplashPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  // Logo
                   Image.asset(
                     'assets/icons/Logo_app.png',
                     width: 80,
@@ -37,7 +35,6 @@ class _SplashPageState extends State<SplashPage> {
                   ),
                   const SizedBox(height: 20),
 
-                  // White Text above Sign Up Button
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -46,8 +43,8 @@ class _SplashPageState extends State<SplashPage> {
                         style: TextStyle(
                           fontSize: 18,
                           fontFamily: 'Inter',
-                          fontWeight: FontWeight.normal, // Regular weight
-                          color: Colors.white, // White color text
+                          fontWeight: FontWeight.normal, 
+                          color: Colors.white, 
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -57,8 +54,8 @@ class _SplashPageState extends State<SplashPage> {
                         style: TextStyle(
                           fontSize: 18,
                           fontFamily: 'Inter',
-                          fontWeight: FontWeight.normal, // Regular weight
-                          color: Colors.white, // White color text
+                          fontWeight: FontWeight.normal, 
+                          color: Colors.white, 
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -66,30 +63,30 @@ class _SplashPageState extends State<SplashPage> {
                   ),
                   const SizedBox(height: 20),
 
-                  // Sign Up Button
+         
                   SizedBox(
-                    width: double.infinity, // Lebar sama untuk kedua tombol
+                    width: double.infinity, 
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const SignUpPage()),
+                          MaterialPageRoute(builder: (context) => RegisterScreen()),
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white, // White background
-                        foregroundColor: Colors.orange, // Orange text
+                        backgroundColor: Colors.white, 
+                        foregroundColor: Colors.orange, 
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50.0),
                         ),
-                        padding: const EdgeInsets.symmetric(vertical: 16), // Padding seragam
+                        padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
                       child: const Text(
                         'Sign up to Service Hub',
                         style: TextStyle(
                           fontSize: 16,
                           fontFamily: 'Inter',
-                          fontWeight: FontWeight.bold, // Bold weight
+                          fontWeight: FontWeight.bold, 
                         ),
                       ),
                     ),
@@ -97,9 +94,9 @@ class _SplashPageState extends State<SplashPage> {
 
                   const SizedBox(height: 20),
 
-                  // Login Button
+                
                   SizedBox(
-                    width: double.infinity, // Lebar sama untuk kedua tombol
+                    width: double.infinity, 
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -108,19 +105,19 @@ class _SplashPageState extends State<SplashPage> {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange, // Orange background
-                        foregroundColor: Colors.white, // White text
+                        backgroundColor: Colors.orange, 
+                        foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50.0),
                         ),
-                        padding: const EdgeInsets.symmetric(vertical: 16), // Padding seragam
+                        padding: const EdgeInsets.symmetric(vertical: 16), 
                       ),
                       child: const Text(
                         'Login',
                         style: TextStyle(
                           fontSize: 16,
                           fontFamily: 'Inter',
-                          fontWeight: FontWeight.bold, // Bold weight
+                          fontWeight: FontWeight.bold, 
                         ),
                       ),
                     ),

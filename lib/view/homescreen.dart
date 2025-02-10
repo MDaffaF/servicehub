@@ -151,7 +151,7 @@ class CategoriesSection extends StatelessWidget {
           icon: Icons.plumbing,
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Plumbingpage()));
+                MaterialPageRoute(builder: (context) => PlumbingPage()));
           },
         ),
         CategoryIcon(
@@ -167,7 +167,7 @@ class CategoriesSection extends StatelessWidget {
           icon: Icons.format_paint,
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Paintpage()));
+                MaterialPageRoute(builder: (context) => PaintPage()));
           },
         ),
         CategoryIcon(

@@ -14,7 +14,6 @@ class _AccessPageState extends State<AccessPage> {
     return Scaffold(
       body: Stack(
         children: [
-          // Background Image
           Positioned.fill(
             child: Image.asset(
               'assets/icons/backgroundSpalshWhite.png',
@@ -27,16 +26,13 @@ class _AccessPageState extends State<AccessPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  // Gambar "Allow Access"
                   Image.asset(
-                    'assets/icons/Addres.png', // Ganti dengan gambar 'addres.png'
+                    'assets/icons/Addres.png',
                     width: 150,
                     height: 150,
                     fit: BoxFit.contain,
                   ),
                   const SizedBox(height: 20),
-
-                  // Text yang menjelaskan izin akses
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
@@ -44,9 +40,9 @@ class _AccessPageState extends State<AccessPage> {
                         'We need your location access to easily find Service Hub',
                         style: TextStyle(
                           fontSize: 16,
-                          color: Colors.grey, // White color text
+                          color: Colors.grey,
                           fontWeight: FontWeight.normal,
-                          fontFamily: 'Inter', // Apply the Inter font
+                          fontFamily: 'Inter',
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -55,19 +51,17 @@ class _AccessPageState extends State<AccessPage> {
                         'professionals around you',
                         style: TextStyle(
                           fontSize: 16,
-                          color: Colors.grey, // White color text
+                          color: Colors.grey,
                           fontWeight: FontWeight.normal,
-                          fontFamily: 'Inter', // Apply the Inter font
+                          fontFamily: 'Inter',
                         ),
                         textAlign: TextAlign.center,
                       ),
                     ],
                   ),
                   const SizedBox(height: 20),
-
-                  // Tombol untuk Allow Location Access dengan warna putih dan background oranye
                   SizedBox(
-                    width: double.infinity, // Lebar sama untuk kedua tombol
+                    width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -76,37 +70,32 @@ class _AccessPageState extends State<AccessPage> {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange, // Orange background
-                        foregroundColor: Colors.white, // White text
+                        backgroundColor: Colors.orange,
+                        foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50.0),
                         ),
-                        padding: const EdgeInsets.symmetric(vertical: 16), // Padding seragam
+                        padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
                       child: const Text(
                         'Allow Location Access',
                         style: TextStyle(
                           fontSize: 16,
-                          fontFamily: 'Inter', // Apply the Inter font
+                          fontFamily: 'Inter',
                         ),
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 20),
-
-                  // Teks "Skip This Step" yang dapat diklik
                   TextButton(
-                    onPressed: () {
-                      // Tambahkan aksi jika ingin melanjutkan tanpa izin lokasi
-                    },
+                    onPressed: () {},
                     child: const Text(
                       'Skip This Step',
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.orange, // Warna teks putih
-                        fontWeight: FontWeight.bold, // Menebalkan teks
-                        fontFamily: 'Inter', // Apply the Inter font
+                        color: Colors.orange,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Inter',
                       ),
                     ),
                   ),

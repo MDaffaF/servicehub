@@ -38,8 +38,6 @@ class _RolePageState extends State<RolePage> {
                     ),
                   ),
                   const SizedBox(height: 30),
-
-                  // Button 1: Looking for a specialist
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
@@ -94,14 +92,12 @@ class _RolePageState extends State<RolePage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-
-                  // Button 2: Looking for a job (Disabled & Grayscale)
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: null, // Button disabled
+                      onPressed: null,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey[400], // Grayscale color
+                        backgroundColor: Colors.grey[400],
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                           side: BorderSide(color: Colors.grey[400]!, width: 2),
@@ -120,7 +116,7 @@ class _RolePageState extends State<RolePage> {
                                   'Looking for a job (Cooming Soon)',
                                   style: TextStyle(
                                     fontSize: 18,
-                                    color: Colors.black45, // Grayscale text color
+                                    color: Colors.black45,
                                     fontFamily: 'Inter',
                                   ),
                                 ),
@@ -129,7 +125,7 @@ class _RolePageState extends State<RolePage> {
                                   'Search and execute orders in your field of activity.',
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: Colors.black38, // Grayscale text color
+                                    color: Colors.black38,
                                     fontFamily: 'Inter',
                                   ),
                                 ),
@@ -151,8 +147,6 @@ class _RolePageState extends State<RolePage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-
-                  // Skip This Step Button
                   Align(
                     alignment: Alignment.center,
                     child: TextButton(

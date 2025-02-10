@@ -8,7 +8,6 @@ class AboutUsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Hero Header Section
             Stack(
               children: [
                 Container(
@@ -46,8 +45,6 @@ class AboutUsPage extends StatelessWidget {
                 ),
               ],
             ),
-
-            // About Us Description
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
@@ -67,8 +64,6 @@ class AboutUsPage extends StatelessWidget {
                     style: TextStyle(fontSize: 16, color: Colors.black87),
                   ),
                   SizedBox(height: 20),
-
-                  // Mission Section
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.orange.shade100,
@@ -89,8 +84,6 @@ class AboutUsPage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 30),
-
-                  // Our Team Section
                   Text(
                     "Meet Our Team",
                     style: TextStyle(
@@ -111,7 +104,6 @@ class AboutUsPage extends StatelessWidget {
   }
 }
 
-// Team Section
 class TeamSection extends StatelessWidget {
   final List<Map<String, String>> teamMembers = [
     {"name": "Rizal", "role": "BNN (Bagian Ngedit Ngedit)", "image": "assets/icons/rizal.png"},
@@ -149,7 +141,6 @@ class TeamSection extends StatelessWidget {
   }
 }
 
-// Team Card
 class TeamCard extends StatelessWidget {
   final String name;
   final String role;
